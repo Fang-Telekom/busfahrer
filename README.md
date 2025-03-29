@@ -1,4 +1,5 @@
 # Kletterwebsite
 
-
-Test 1
+Frontend: Angular
+Backnend: Django
+Extras: Tailwind
