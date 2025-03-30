@@ -1,0 +1,45 @@
+<div class="sticky-header">
+    <div class="row">
+        <!-- Titel -->
+        <h1 style="z-index: 2;"> Gabi Like a King </h1>
+        
+        <nav aria-label="Marin Navigation Links">
+            <a href="/" aria-label="Home"> Home </a>
+            <a href="/" aria-label="Philosophie"> Philosophie </a>
+
+            
+            <!-- <a href="/member aria-label="Member"> Mitglied </a> -->
+            <button *ngIf="!logged" class="navBtn" (click)="toggleModal('log')" style="width: auto;"> Login </button>
+            <a *ngIf="logged" href="/" aria-label="User"> {{user.name}} </a>
+            <a *ngIf="admin" href="/" aria-label="Admin"> Admin Page </a>
+        </nav>
+    </div>
+
+
+</div>
+    <!-- Modal log -->
+    <div id="log"  class="modal" [style.display]="modalVisible == 'log' ? 'block' : 'none'">
+        <div style="position: relative" class="modal-content animate">
+            <section>
+                <h1>Login Form</h1>
+                <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+            </section>
+            <section>
+                <form action="/" method="post">
+                    <div class="row" style="flex-direction: column">
+
+                        <label for="name"><b> Benutzername </b></label>
+                        <input type="text" placeholder="Benutzername" name="name" #username>
+                        <label for="pass"><b> Passwort </b></label>
+                        <input type="password" placeholder="Passwort" name="pass" #password>
+                        <button type="button" style="color: white;" class="modalBtn" (click)="verify(username.value, password.value)"> Login </button>
+
+                    </div>
+                    <div class="row">
+                        <button type="button" style="margin:auto; width: 40%;" (click)="toggleModal(null)"> Cancel </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <!-- End of Modal log -->
