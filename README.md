@@ -1,8 +1,4 @@
-# Kletterwebsite
-
-Gabi Cool Life Experience of climbing Mount Evererst and smaller Obstacle of Life! Enjoy the ride along ^^
-
-Hier können wir auch updates reinschreiben, die wir machen wollen. Aber ich glaub sowas werden wir eh im discord vc besprechen xD
+# Busfahrer
 
 ## Technology Stack
 * [Frontend: Angular](https://angular.dev/)
