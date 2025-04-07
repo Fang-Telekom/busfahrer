@@ -20,18 +20,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mep8pxvq0)v4o2+7+84_o-n0g$0^ul45wqz^_r^3bc=q3l1xy%'
+SECRET_KEY = 'django-insecure-@r47c$u6_@zf_(%dwxw4mcqtcu)$_vrk2)jfjazf3@vq!s#ek('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "localhost:4200", "http://localhost:4200"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    #CORS
     'corsheaders',
 
     'django.contrib.admin',
@@ -40,19 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    #App
-    #directory.apps(file).name
-    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    'corsheaders.middleware.CorsMiddleware'
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    #if you want to do csrf
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -69,11 +63,9 @@ CORS_ALLOW_METHODS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:4200',  # Add your frontend's origin
-    'http://127.0.0.1:4200',  # Add if using localhost with a different IP
+    'http://localhost:4200',
+    'http://127.0.0.1:4200', 
 ]
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'Lax'
 
 ROOT_URLCONF = 'main.urls'
 
