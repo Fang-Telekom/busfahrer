@@ -1,0 +1,49 @@
+.board {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.board img {
+    width: 100%; 
+    max-height: none;
+    display: block;
+}
+.center {
+    position: absolute;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+}
+.rounded-img {
+    border-radius: 10px;
+}
+
+button {
+    display: flex;
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    justify-content: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s;
+    border-bottom: 1px solid transparent;
+}
+button.bordered-box {
+    border: 1px solid white;
+}
+
+button:hover {
+    background-color: rgba(85, 85, 85, 0.4);
+    color: white;
+}

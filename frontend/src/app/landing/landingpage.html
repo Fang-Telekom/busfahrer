@@ -8,9 +8,64 @@
                 Abra Kadabra Fillibumsda Magic the Gathering. Valorant Meisterschafft wird zum Mord. Abra Kadabra Fillibumsda Magic the Gathering. Valorant Meisterschafft wird zum Mord.<br><br>
                 </p>
                 
-            <a href="" class="custom-button bordered-box">
+            <button (click)="toggleModal('party')" class="custom-button bordered-box">
                 Play
-            </a>
+            </button>
         </div>
     </div>
 </div>
+
+<!-- Modal Party -->
+<div id="party"  class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
+    <div style="position: relative" class="modal-content animate">
+        <section>
+            <h1>Busfahrer - Party Beitreten</h1>
+            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+        </section>
+        <section>
+            <form action="/" method="post">
+                <div class="row">
+                    <div style="display: flex; justify-content: center; gap: 3%;">
+                        <div class="row" style="width: 50%">
+                            <label for="name"><b> Name </b></label>
+                            <input type="text" placeholder="Username" name="name" #name>
+                        </div>
+                        <div class="row" style="width: 50%">
+                            <label for="code"><b> Party Code </b></label>
+                            <input type="text" placeholder="Party Code" name="code" #code>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 10%">
+                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Beitreten </button>
+                        <button type="button" class="modalBtn" (click)="toggleModal('create')"> Erstellen </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<!-- End of Modal party -->
+
+<!-- Modal Party Create -->
+<div id="party"  class="modal" [style.display]="modalVisible == 'create' ? 'block' : 'none'">
+    <div style="position: relative" class="modal-content animate">
+        <section>
+            <h1>Busfahrer - Party Starten</h1>
+            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+        </section>
+        <section>
+            <form>
+                <div class="row">
+
+                    <label for="name"><b> Dein Name </b></label>
+                    <input type="text" placeholder="Name" name="name" #master>
+                    <div style="display: flex; justify-content: center; gap: 5%">
+                        <button type="button" class="modalBtn" (click)="create(master.value)"> Erstellen </button>
+                        <button type="button" class="modalBtn" (click)="toggleModal('party')"> Beitreten </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<!-- End of Modal party create -->

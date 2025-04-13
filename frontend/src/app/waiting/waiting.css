@@ -1,0 +1,66 @@
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%; 
+    max-height: none;
+    display: block;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    height: 30%;
+}
+
+.bordered-box {
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.rounded-img {
+    border-radius: 10px;
+}
+
+.blurred-bg {
+    filter: blur(2px);
+}
+
+.custom-button {
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, opacity 0.3s;
+    border-bottom: 1px solid transparent;
+}
+.custom-button.bordered-box {
+    border: 1px solid white;
+}
+
+.custom-button:hover {
+    background-color: rgba(85, 85, 85, 0.4);
+    color: white;
+}
