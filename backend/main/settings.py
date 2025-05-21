@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-@r47c$u6_@zf_(%dwxw4mcqtcu)$_vrk2)jfjazf3@vq!s#ek(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost"
+]
 
 
 # Application definition
@@ -100,6 +103,17 @@ DATABASES = {
     }
 }
 
+# Channels - temporary due to no redis yet TODO
+ASGI_APPLICATION = "main.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        #"BACKEND": "channels_redis.core.RedisChannelLayer",
+        #"CONFIG": {
+        #    "hosts": [("127.0.0.1", 6379)],
+        #},
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

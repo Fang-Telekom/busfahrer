@@ -1,11 +1,52 @@
 <div class="board">
     <img src="assets/busfahrer.webp" alt="Board" class="rounded-img bakground">
     
-    <div class="center" style="width: 10%">
-        <button click="draw()">
+    <div class="container">
+        <div class="center">
+            <h2>Player ...n</h2>
+            <button (click)="draw()">
 
-            <img src="assets/deck.png" alt="deck">
+                <img src="assets/deck.png" alt="deck">
+                
+            </button>
+        </div>
+        
+
+        <div class="card">
             
-        </button>
+            <button (click)="open()">
+
+                <img src="assets/card.png" alt="deck">
+                
+            </button>
+
+            <button (click)="open()">
+
+                <img src="assets/card.png" alt="deck">
+                
+            </button>
+
+            <button (click)="open()">
+
+                <img src="assets/card.png" alt="deck">
+                
+            </button>
+
+            <button (click)="open()">
+
+                <img src="assets/card.png" alt="deck">
+                
+            </button>
+        </div>
+    </div>
+    <div class="container" style="position: absolute;">
+        <div class="center">
+            <h2>Next Round</h2>
+            <button (click)="next()">
+
+                <img src="assets/deck.png" alt="deck">
+                
+            </button>
+        </div>
     </div>
 </div>

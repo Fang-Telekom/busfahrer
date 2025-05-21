@@ -36,4 +36,7 @@ export class LandingComponent {
       
     }
   }
+  async play(){
+    window.location.href="/play"
+  }
 }

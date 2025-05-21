@@ -9,4 +9,10 @@ export class firstComponent {
   draw(){
 
   }
+  open(){
+
+  }
+  next(){
+    window.location.href="/second"
+  }
 }

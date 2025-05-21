@@ -1,0 +1,99 @@
+<div id="party" class="board" [style.display]="phase == 'lobby' ? 'block' : 'none'">
+    
+    <div class="hero">
+        <img src="assets/busfahrer.webp" alt="hero" class="rounded-img bakground">
+        
+        <div class="hero-text bordered-box">
+            <h1>Player</h1>
+            
+            <div class="centered-list">
+                <ul *ngFor="let name of getPlayerNames()">
+                    {{ name }}
+                </ul>
+            </div>
+
+            <button (click)="startGame()" class="custom-button bordered-box">
+                Start the Game
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div id="party"  class="board" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
+
+    
+    <div class="board">
+        <img src="assets/busfahrer.webp" alt="Board" class="rounded-img bakground">
+        
+        <div class="container">
+            <div class="center">
+                <h2>Player ...n</h2>
+                <button (click)="draw()">
+
+                    <img src="assets/deck.png" alt="deck">
+                    
+                </button>
+            </div>
+            
+
+            <div class="card">
+                
+                <button (click)="open()">
+
+                    <img src="assets/card.png" alt="deck">
+                    
+                </button>
+
+                <button (click)="open()">
+
+                    <img src="assets/card.png" alt="deck">
+                    
+                </button>
+
+                <button (click)="open()">
+
+                    <img src="assets/card.png" alt="deck">
+                    
+                </button>
+
+                <button (click)="open()">
+
+                    <img src="assets/card.png" alt="deck">
+                    
+                </button>
+            </div>
+        </div>
+        <div class="container" style="position: absolute;">
+            <div class="center">
+                <h2>Next Round</h2>
+                <button (click)="next()">
+
+                    <img src="assets/deck.png" alt="deck">
+                    
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div id="party"  class="board" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
+
+    
+    <p>pyramid works!</p>
+
+
+
+</div>
+
+<div id="party"  class="board" [style.display]="phase == 'bus' ? 'block' : 'none'">
+
+    
+    <p>pyramid works!</p>
+
+
+
+</div>

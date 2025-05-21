@@ -1,31 +1,75 @@
 //web-socket.service.ts
 
 import { Injectable } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { Observable, Subject } from 'rxjs';
 @Injectable({
  providedIn: 'root',
 })
+
 export class WebSocketService {
- private webSocket: Socket;
- constructor() {
-  this.webSocket = new Socket({
-   url: "https://exampleUrl.com",
-   options: {},
-  });
- }
+    private socket$!: WebSocketSubject<WebSocketMessage>;
+    private messagesSubject$ = new Subject<any>();
+    public messages$ = this.messagesSubject$.asObservable();
 
- // this method is used to start connection/handhshake of socket with server
- connectSocket(message: String) {
-  this.webSocket.emit('connect', message);
- }
+    private baseUrl = 'ws://localhost:8000/ws/party/';
+    private room = 'myroom'; // ToDo can be dynamic
 
- // this method is used to get response from server
- receiveStatus() {
-  return this.webSocket.fromEvent('/get-response');
- }
+    constructor() {}
 
- // this method is used to end web socket connection
- disconnectSocket() {
-  this.webSocket.disconnect();
- }
+    connect(): void {
+        const url = `${this.baseUrl}${this.room}/`;
+
+        this.socket$ = webSocket({
+        url: url,
+        deserializer: (e) => JSON.parse(e.data),
+        serializer: (value) => JSON.stringify(value),
+        openObserver: {
+            next: () => {
+            console.log('[WebSocket] Connection established');
+            },
+        },
+        closeObserver: {
+            next: () => {
+            console.log('[WebSocket] Connection closed');
+            },
+        },
+        });
+
+        this.socket$.subscribe({
+        next: (msg) => this.messagesSubject$.next(msg),
+        error: (err) => {
+            console.error('[WebSocket] Error:', err);
+            this.reconnect(); // optional auto-reconnect
+        },
+        complete: () => {
+            console.log('[WebSocket] Completed');
+        },
+        });
+    }
+
+    sendMessage(message: any): void {
+        if (this.socket$) {
+        this.socket$.next(message);
+        }
+    }
+
+    close(): void {
+        this.socket$.complete();
+    }
+
+    reconnect(): void {
+        setTimeout(() => {
+        console.log('[WebSocket] Reconnecting...');
+        this.connect();
+        }, 3000);
+    }
+}
+
+interface WebSocketMessage {
+  type: 'state' | 'system' | 'chat' | 'guess_result';
+  message?: string;
+  card?: string;
+  correct?: boolean;
+  players?: any;
 }

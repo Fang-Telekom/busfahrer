@@ -23,10 +23,13 @@
 
 ### Serve Django application on local machine
 
+#### HTTP
 1. Run `python manage.py runserver` within the **backend** directory
 2. Navigate to the browser `http://localhost:8000`
 
-
+#### WebSocket
+1. Runserver has trouble running Websocket (async)
+2. Run `daphne -p 8000 main.asgi:application` within the **backend** directory
 ## Introduction
 
 ### create Angular Project
