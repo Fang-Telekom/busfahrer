@@ -13,6 +13,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   private sub!: Subscription;
   public phase: String = "lobby";
   public players = [];
+  public player = "";
 
   constructor(private wsService: WebSocketService) {}
 
@@ -24,9 +25,11 @@ export class PlayComponent implements OnInit, OnDestroy {
 
       const type = msg.type;
       this.phase = msg.phase;
+      this.player = msg.player;
       this.players = msg.players;
       // handle game state, results, etc.
     });
+
   }
   getPlayerNames(): string[] {
     return Object.keys(this.players);

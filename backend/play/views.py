@@ -189,6 +189,7 @@ class play(WebsocketConsumer):
         state = {
             "type": "state",
             "phase": self.phase,
+            "player": self.username,
             "players": {
                 p["username"]: {
                     "score": p["score"],

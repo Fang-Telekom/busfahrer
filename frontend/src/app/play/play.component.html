@@ -1,10 +1,10 @@
-<div id="party" class="board" [style.display]="phase == 'lobby' ? 'block' : 'none'">
+<div id="party" class="board waiting" [style.display]="phase == 'lobby' ? 'block' : 'none'">
     
     <div class="hero">
         <img src="assets/busfahrer.webp" alt="hero" class="rounded-img bakground">
         
         <div class="hero-text bordered-box">
-            <h1>Player</h1>
+            <h1>Player: {{player}}</h1>
             
             <div class="centered-list">
                 <ul *ngFor="let name of getPlayerNames()">
@@ -20,63 +20,28 @@
 
 </div>
 
-<div id="party"  class="board" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
+<div id="party"  class="board qualifying" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
 
     
-    <div class="board">
-        <img src="assets/busfahrer.webp" alt="Board" class="rounded-img bakground">
-        
-        <div class="container">
-            <div class="center">
-                <h2>Player ...n</h2>
-                <button (click)="draw()">
+  <div class="board">
+    <img src="assets/busfahrer.webp" alt="Background" class="background-image" />
+    
+    <div class="overlay">
+      <div class="player-panel">
+        <h2 id="player-name">{{player}}</h2>
+        <button class="bordered-box" aria-label="Draw a card">
+            Higher
+        </button>
+        <button class="bordered-box" aria-label="Draw a card">
+            Lower
+        </button>
+      </div>
 
-                    <img src="assets/deck.png" alt="deck">
-                    
-                </button>
-            </div>
-            
-
-            <div class="card">
-                
-                <button (click)="open()">
-
-                    <img src="assets/card.png" alt="deck">
-                    
-                </button>
-
-                <button (click)="open()">
-
-                    <img src="assets/card.png" alt="deck">
-                    
-                </button>
-
-                <button (click)="open()">
-
-                    <img src="assets/card.png" alt="deck">
-                    
-                </button>
-
-                <button (click)="open()">
-
-                    <img src="assets/card.png" alt="deck">
-                    
-                </button>
-            </div>
-        </div>
-        <div class="container" style="position: absolute;">
-            <div class="center">
-                <h2>Next Round</h2>
-                <button (click)="next()">
-
-                    <img src="assets/deck.png" alt="deck">
-                    
-                </button>
-            </div>
-        </div>
+      <div class="card-display">
+        <img src="assets/card.png" alt="Current card" id="current-card" />
+      </div>
     </div>
-
-
+  </div>
 
 </div>
 
@@ -92,7 +57,7 @@
 <div id="party"  class="board" [style.display]="phase == 'bus' ? 'block' : 'none'">
 
     
-    <p>pyramid works!</p>
+    <p>bus works!</p>
 
 
 
