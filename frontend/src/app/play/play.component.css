@@ -82,6 +82,18 @@
 }
 
 .qualifying{
+    .player-name {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        z-index: 2;
+    }
     .board {
         position: relative;
         width: 100%;
@@ -129,7 +141,207 @@
         border-radius: 12px;
         padding: 20px;
         text-align: center;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+    .choice-panel {
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .deck-icon {
+        width: 60px;
+        height: auto;
+    }
+
+    button {
+        margin-top: 10px;
+        background-color: transparent;
         color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    button.bordered-box {
+        border: 1px solid white;
+        padding: 10px;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+}
+
+.pyramid {
+    .board {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .player-name {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        z-index: 2;
+    }
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        border-radius: 10px;
+    }
+    .player-name {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        z-index: 2;
+    }
+    .pyramid-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        height: 100%;
+        gap: 10px;
+    }
+    .pyramid-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .pyramid-row img {
+        width: 120px;
+        height: auto;
+        border-radius: 6px;
+        display: block;
+    }
+
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s;
+        padding: 0;
+        display: inline-block;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    button img {
+        width: 120px;
+        height: auto;
+        border-radius: 6px;
+    }
+
+    .bordered-box{
+        margin-top: 15px;
+        background-color: transparent;
+        color: white;
+        font-size: 1rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        border: 1px solid white;
+        padding: 10px;
+
+        :hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.bus{
+    .board {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .background-image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    .overlay {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .player-panel {
+        width: 100%;
+        max-width: 200px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        margin: 10px;
+    }
+    .card-display {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+    .choice-panel {
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;

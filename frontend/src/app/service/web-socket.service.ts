@@ -12,13 +12,18 @@ export class WebSocketService {
     private messagesSubject$ = new Subject<any>();
     public messages$ = this.messagesSubject$.asObservable();
 
-    private baseUrl = 'ws://localhost:8000/ws/party/';
+    private connectionStatusSubject$ = new Subject<'connected' | 'error'>();
+    public connectionStatus$ = this.connectionStatusSubject$.asObservable();
+
+    private baseUrl = 'ws://localhost/ws/party/';
+    //private baseUrl = 'ws://localhost:8000/ws/party/';
+    
     private room = 'myroom'; // ToDo can be dynamic
 
     constructor() {}
 
-    connect(): void {
-        const url = `${this.baseUrl}${this.room}/`;
+    connect(room: string, user:string): void {
+        const url = `${this.baseUrl}${room}/${user}/`;
 
         this.socket$ = webSocket({
         url: url,
@@ -26,7 +31,8 @@ export class WebSocketService {
         serializer: (value) => JSON.stringify(value),
         openObserver: {
             next: () => {
-            console.log('[WebSocket] Connection established');
+                console.log('[WebSocket] Connection established');
+                this.connectionStatusSubject$.next('connected');
             },
         },
         closeObserver: {
@@ -40,7 +46,7 @@ export class WebSocketService {
         next: (msg) => this.messagesSubject$.next(msg),
         error: (err) => {
             console.error('[WebSocket] Error:', err);
-            this.reconnect(); // optional auto-reconnect
+            this.connectionStatusSubject$.next('error');
         },
         complete: () => {
             console.log('[WebSocket] Completed');
@@ -58,12 +64,6 @@ export class WebSocketService {
         this.socket$.complete();
     }
 
-    reconnect(): void {
-        setTimeout(() => {
-        console.log('[WebSocket] Reconnecting...');
-        this.connect();
-        }, 3000);
-    }
 }
 
 interface WebSocketMessage {

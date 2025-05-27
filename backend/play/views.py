@@ -48,14 +48,39 @@ from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 
 class play(WebsocketConsumer):
-    players = {}
-    pyramid = [] 
-    bus_cards = []
-    phase = "lobby"
-    deck = []
+    party = {}
+
+    
     def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
-        self.room_group_name = f"party_{self.room_name}"
+        self.room_group_name = f"{self.room_name}"
+
+        if("username" in self.scope["url_route"]["kwargs"]):
+             self.username = self.scope["url_route"]["kwargs"]["username"]
+        else:
+            self.username = f"Guest_{random.randint(1000, 9999)}"
+        
+        if(self.room_name not in play.party):
+            play.party[self.room_name] = {
+                "players": {},
+                "room": self.room_group_name,
+                "master": self.username,
+                "turn": 0,
+                "pyramid": [], 
+                "bus_cards": [],
+                "phase": "lobby",
+                "deck": []
+            }
+        elif(play.party[self.room_name]["phase"] != "lobby"):
+            self.close()
+
+        self.room = play.party[self.room_name]
+        self.room["players"][self.channel_name] = {
+            "username": self.username,
+            "cards": [],
+            "state": "waiting",
+            "score": 0
+        }
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -63,13 +88,12 @@ class play(WebsocketConsumer):
         )
 
         self.accept()
-        self.username = self.scope["user"].username if self.scope["user"].is_authenticated else f"Guest_{random.randint(1000, 9999)}"
-        play.players[self.channel_name] = {
-            "username": self.username,
-            "cards": [],
-            "state": "waiting",
-            "score": 0
+
+        player = {
+            "type": "player",
+            "player": self.username
         }
+        self.send_to_player(player)
         self.broadcast_game_state()
 
     def disconnect(self, close_code):
@@ -78,8 +102,11 @@ class play(WebsocketConsumer):
             self.room_group_name, self.channel_name
         )
 
-        if self.channel_name in play.players:
-            del play.players[self.channel_name]
+        if self.channel_name in self.room["players"]:
+            del self.room["players"][self.channel_name]
+
+        if not self.room["players"]:
+            del play.party[self.room_name]
 
         self.broadcast_game_state()
 
@@ -94,6 +121,10 @@ class play(WebsocketConsumer):
             self.handle_guess(data)
         elif action == "next_phase":
             self.advance_phase()
+        elif action == "reveal_pyramid":
+            self.reveal_pyramidCard(data)
+        elif action == "guessBus":
+            self.handle_guess(data)
         elif action == "chat":
             self.send_to_group({
                 "type": "chat",
@@ -102,32 +133,60 @@ class play(WebsocketConsumer):
             })
 
     def start_game(self):
-        play.deck = self.generate_deck()
-        random.shuffle(play.deck)
+        if(self.room["master"] == self.username):
+            self.room["deck"] = self.generate_deck()
+            random.shuffle(self.room["deck"])
 
-        for p in play.players.values():
-            p["cards"] = []
-            p["state"] = "guessing"
-            p["score"] = 0
+            for p in self.room["players"].values():
+                p["cards"] = []
+                p["state"] = "guessing"
+                p["score"] = 0
 
-        play.phase = "qualifying"
-        self.send_to_group({
-            "type": "system",
-            "message": "Game started! First phase: Guessing."
-        })
+            self.room["phase"] = "qualifying"
+            self.send_to_group({
+                "type": "system",
+                "message": "Game started! First phase: Guessing."
+            })
 
-        self.broadcast_game_state()
+            self.broadcast_game_state()
 
     def handle_guess(self, data):
         guess = data.get("guess")
-        player = play.players[self.channel_name]
+        player = self.room["players"][self.channel_name]
+        print(len(list(self.room["players"].values())))
 
-        if play.phase == "qualifying":
-            card = play.deck.pop()
+        if self.room["phase"] == "qualifying" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
+            card = self.room["deck"].pop()
             correct = self.evaluate_guess(guess, card, player["cards"])
             player["cards"].append(card)
-            player["score"] += int(correct)
             player["state"] = "done" if len(player["cards"]) >= 4 else "guessing"
+
+           
+            self.broadcast_game_state()
+            self.room["turn"] += 1
+            if(self.room["turn"] >= len(list(self.room["players"].values()))):
+                self.room["turn"] = 0
+                
+            self.send(text_data=json.dumps({
+                "type": "guess_result",
+                "correct": correct,
+                "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
+                "card": card
+            }))
+
+        if self.room["phase"] == "bus":
+            card = self.room["deck"].pop()
+
+            rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+                      '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+            #suit = card[-1]
+            rank = rank_order[card[:-1]]
+            prev_rank = rank_order[player["cards"][0][:-1]]
+            correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank)
+            
+            player["cards"].append(card)
+            player["score"] += int(correct)
+            player["state"] = "done" if player["score"] > 4 else "guessing"
 
             self.send(text_data=json.dumps({
                 "type": "guess_result",
@@ -137,29 +196,43 @@ class play(WebsocketConsumer):
             self.broadcast_game_state()
 
     def advance_phase(self):
-        if play.phase == "qualifying":
-            play.phase = "pyramid"
-            self.setup_pyramid()
-            self.send_to_group({
-                "type": "system",
-                "message": "Phase 2: Pyramid!"
-            })
+        if(self.room["master"] == self.username):
+            #new deck?
+            #self.room["deck"] = self.generate_deck()
+            random.shuffle(self.room["deck"])
+            if self.room["phase"] == "qualifying":
+                self.room["phase"] = "pyramid"
+                self.setup_pyramid()
+                self.send_to_group({
+                    "type": "system",
+                    "message": "Phase 2: Pyramid!"
+                })
 
-        elif play.phase == "pyramid":
-            play.phase = "bus"
-            self.setup_busfahren()
-            self.send_to_group({
-                "type": "system",
-                "message": "Final Phase: Busfahren!"
-            })
+            elif self.room["phase"] == "pyramid":
+                self.room["phase"] = "bus"
+                self.setup_busfahren()
+                self.send_to_group({
+                    "type": "system",
+                    "message": "Final Phase: Busfahren!"
+                })
 
-        self.broadcast_game_state()
+            self.broadcast_game_state()
 
     def setup_pyramid(self):
-        self.pyramid = [self.deck.pop() for _ in range(15)]
+        self.room["pyramid"] = [self.room["deck"].pop() for _ in range(10)]
 
+        self.send(text_data=json.dumps({
+                "type": "pyramid",
+                "pyramid": self.room["pyramid"]
+            }))
+    def reveal_pyramidCard(self, data):
+        if self.room["master"] == self.username:
+            self.send_to_group({
+                    "type": "pyramidCard",
+                    "pyramid_id": data.get("id")
+                })
     def setup_busfahren(self):
-        self.bus_cards = [self.deck.pop() for _ in range(5)]
+        self.bus_cards = [self.room["deck"].pop() for _ in range(5)]
 
     def evaluate_guess(self, guess, card, previous_cards):
         rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
@@ -181,24 +254,36 @@ class play(WebsocketConsumer):
         return False
 
     def generate_deck(self):
-        suits = ['♠', '♥', '♦', '♣']
+        #suits = ['♠', '♥', '♦', '♣']
+        #Spades, Heart, Diamond, Clubs 
+        suits = ['S', 'H', 'D', 'C']
         ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
         return [f"{rank}{suit}" for suit in suits for rank in ranks]
 
     def broadcast_game_state(self):
         state = {
             "type": "state",
-            "phase": self.phase,
-            "player": self.username,
+            "room": self.room_group_name,
+            "phase": self.room["phase"],
+            "master": self.room["master"],
             "players": {
                 p["username"]: {
                     "score": p["score"],
                     "state": p["state"],
                     "cards": p["cards"] if c == self.channel_name else ["?"] * len(p["cards"])
-                } for c, p in play.players.items()
+                } for c, p in self.room["players"].items()
             }
         }
         self.send_to_group(state)
+
+    def send_to_player(self, message):
+        async_to_sync(self.channel_layer.send)(
+            self.channel_name,
+            {
+                "type": "game_message",
+                "message": message
+            }
+        )
 
     def send_to_group(self, message):
         async_to_sync(self.channel_layer.group_send)(

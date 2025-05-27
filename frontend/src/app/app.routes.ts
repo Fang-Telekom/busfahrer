@@ -11,13 +11,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export const routes: Routes = [
-    { path: "home", component: LandingComponent },
+    { path: "", component: LandingComponent },
     { path: "first", component: firstComponent },
     { path: "second", component: secondComponent },
     { path: "third", component: thirdComponent },
     { path: "play", component: PlayComponent },
-    { path: "waiting", component: waitingComponent },
-    {path: "", redirectTo: "/home", pathMatch: "full" }
+    { path: "waiting", component: waitingComponent }
 ];
 
 @NgModule({

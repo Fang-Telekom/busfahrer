@@ -1,11 +1,11 @@
-<div id="party" class="board waiting" [style.display]="phase == 'lobby' ? 'block' : 'none'">
+<div id="party" class="waiting" [style.display]="phase == 'lobby' ? 'block' : 'none'">
     
     <div class="hero">
         <img src="assets/busfahrer.webp" alt="hero" class="rounded-img bakground">
         
         <div class="hero-text bordered-box">
-            <h1>Player: {{player}}</h1>
-            
+            <h1>Master: {{master}}</h1>
+            <h1>Room: {{room}}</h1>
             <div class="centered-list">
                 <ul *ngFor="let name of getPlayerNames()">
                     {{ name }}
@@ -20,45 +20,148 @@
 
 </div>
 
-<div id="party"  class="board qualifying" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
+<div id="party"  class="qualifying" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
 
     
   <div class="board">
     <img src="assets/busfahrer.webp" alt="Background" class="background-image" />
     
     <div class="overlay">
-      <div class="player-panel">
-        <h2 id="player-name">{{player}}</h2>
-        <button class="bordered-box" aria-label="Draw a card">
-            Higher
-        </button>
-        <button class="bordered-box" aria-label="Draw a card">
-            Lower
-        </button>
-      </div>
+        <div class="player-panel">
+            <h2 id="player-name">Player: {{turn_player}}</h2>
+            <div *ngIf="getCardCount()==0" class="choice-panel">
+                <button (click)="sendGuess('red')" class="bordered-box" aria-label="Draw a card">
+                    Rot
+                </button>
+                <button (click)="sendGuess('black')" class="bordered-box" aria-label="Draw a card">
+                    Schwarz
+                </button>
+            </div>
+            <div *ngIf="getCardCount()==1" class="choice-panel">
+                <button (click)="sendGuess('higher')" class="bordered-box" aria-label="Draw a card">
+                    Higher
+                </button>
+                <button (click)="sendGuess('lower')"class="bordered-box" aria-label="Draw a card">
+                    Lower
+                </button>
+            </div>
+            <div *ngIf="getCardCount()==2" class="choice-panel">
+                <button (click)="sendGuess('inside')" class="bordered-box" aria-label="Draw a card">
+                    Innerhalb
+                </button>
+                <button (click)="sendGuess('outside')" class="bordered-box" aria-label="Draw a card">
+                    Außerhalb
+                </button>
+            </div>
+            <div *ngIf="getCardCount()==3" class="choice-panel">
+                <button (click)="sendGuess('S')" class="bordered-box" aria-label="Draw a card">
+                    Herz
+                </button>
+                <button (click)="sendGuess('H')" class="bordered-box" aria-label="Draw a card">
+                    Karo
+                </button>
+                <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
+                    Pick
+                </button>
+                <button (click)="sendGuess('C')" class="bordered-box" aria-label="Draw a card">
+                    Kreuz
+                </button>
+            </div>
+            <div *ngIf="getCardCount()>=4" class="choice-panel">
+                <button (click)="advance()" class="bordered-box" aria-label="Draw a card">
+                    Nächste Phase
+                </button>
+            </div>
+        </div>
 
-      <div class="card-display">
-        <img src="assets/card.png" alt="Current card" id="current-card" />
-      </div>
+        <div class="card-display" style="align-items: center;">
+            <h1 style=" position: absolute; color: blueviolet; font-size: 64px;">{{card}}</h1>
+            <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+            <img *ngIf="card!=''" src="assets/card.png" alt="Current card" id="current-card" />
+            
+        </div>
     </div>
   </div>
 
 </div>
 
-<div id="party"  class="board" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
+<div id="party"  class="pyramid" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
 
-    
-    <p>pyramid works!</p>
+    <div class="board">
+        <img src="assets/busfahrer.webp" alt="Board" class="background" />
+        <div class="player-name">Phase 2: {{player}}</div>
 
-
+        <div class="pyramid-container">
+            <div class="pyramid-row">
+                <button *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[0]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+            </div>
+            <div class="pyramid-row">
+                <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[1]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[2]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+            </div>
+            <div class="pyramid-row">
+                <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[3]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[4]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[5]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+            </div>
+            <div class="pyramid-row">
+                <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[6]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[7]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[8]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+                <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
+                <img *ngIf="openPyramid[9]==true" src="assets/openCard.png" alt="Current card" id="current-card" />
+            </div>
+            <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
+            Nächste Phase
+        </button>
+        </div>
+        
+    </div>
 
 </div>
 
-<div id="party"  class="board" [style.display]="phase == 'bus' ? 'block' : 'none'">
+<div id="party"  class="bus" [style.display]="phase == 'bus' ? 'block' : 'none'">
 
-    
-    <p>bus works!</p>
+    <div class="board">
+        <img src="assets/busfahrer.webp" alt="Background" class="background-image" />
+        
+        <div class="overlay">
+            <div class="player-panel">
+                <h2 id="player-name">Phase 3: {{player}}</h2>
+                
+                <div *ngIf="5 > score" class="choice-panel">
+                    <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
+                        Higher
+                    </button>
+                    <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
+                        Lower
+                    </button>
+                </div>
+                
+                <div *ngIf="score>4" class="choice-panel">
+                    <button (click)="done()" class="bordered-box" aria-label="Draw a card">
+                        Nächste Phase
+                    </button>
+                </div>
+            </div>
 
+            <div class="card-display" style="align-items: center;">
+                <h1 style=" position: absolute; color: blueviolet; font-size: 64px;">{{card}}</h1>
+                <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+                <img *ngIf="card!=''" src="assets/card.png" alt="Current card" id="current-card" />
+                
+            </div>
+        </div>
+    </div>
 
 
 </div>

@@ -12,31 +12,23 @@ export class LandingComponent {
   toggleModal(modal: 'party' | null | "create"){
     this.modalVisible = modal;
   }
-  async verify(name:String, code: String){
-
+  async verify(name:string, code: string){
+    var room = ""
+    var username = ""
+    if(code == "")
+      room = Math.random().toString(36).substring(2, 8);
+    else
+      room = code
+    if(name == "")
+      username= "Guest_"+Math.floor(Math.random() * 10000)
+    else
+      username = name      
+    
+    window.location.href = `/play?room=${room}&username=${username}`;
   }
   async create(name: String){
-    if (!name.trim()) {
-      alert("Name darf nicht leer sein.");
-      return;
-    }
-    let response = await fetch("http://127.0.0.1:8000/play/create/", {
-      headers: {'Content-Type': 'application/json'},
-      method: 'POST',
-      body: JSON.stringify({"name": name})
-    })
-    let code = await response.json()
-    let d:Date = new Date();
-    if(response.status==200){
-      
-      d.setTime(d.getTime() + 20 * 60 * 1000);
-      let expires:string = `expires=${d.toUTCString()}`;
-      document.cookie = "code="+JSON.stringify(code)+`;${expires};path=/`
-      window.location.href="/waiting"
-      
-    }
+    const room = Math.random().toString(36).substring(2, 8); // generate random room
+    window.location.href = `/play?room=${room}&username=${name}`;
   }
-  async play(){
-    window.location.href="/play"
-  }
+
 }

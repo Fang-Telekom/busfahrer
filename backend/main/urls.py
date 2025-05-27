@@ -23,5 +23,5 @@ urlpatterns = [
     path("play/", include("play.urls"))
 ]
 websocket_urlpatterns = [
-    re_path(r"ws/party/(?P<room_name>\w+)/$", play.as_asgi()),
+    re_path(r"ws/party/(?P<room_name>\w+)/(?P<username>\w+)/$", play.as_asgi()),
 ]
