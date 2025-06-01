@@ -89,7 +89,7 @@
 
     <div class="board">
         <img src="assets/busfahrer.webp" alt="Board" class="background" />
-        <div class="player-name">Phase 2: {{player}}</div>
+        <div class="player-name">Phase 2: {{master}}</div>
 
         <div class="pyramid-container">
             <div class="pyramid-row">
@@ -137,7 +137,7 @@
         <div class="overlay">
             <div class="player-panel">
                 <h2 id="player-name">Phase 3: {{player}}</h2>
-                
+                <h2>Score {{score}}</h2>
                 <div *ngIf="5 > score" class="choice-panel">
                     <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
                         Higher
@@ -149,7 +149,7 @@
                 
                 <div *ngIf="score>4" class="choice-panel">
                     <button (click)="done()" class="bordered-box" aria-label="Draw a card">
-                        Nächste Phase
+                        Done
                     </button>
                 </div>
             </div>
@@ -163,5 +163,18 @@
         </div>
     </div>
 
-
 </div>
+
+<!-- Notification -->
+<div id="party"  class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
+    <div style="position: relative" class="modal-content animate">
+        <section>
+            <h1>{{message.title}}</h1>
+            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+        </section>
+        <section>
+            <p>{{message.message}}</p>
+        </section>
+    </div>
+</div>
+<!-- End of Notification -->

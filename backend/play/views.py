@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from channels.layers import get_channel_layer
 
 import string, random, json
 from .models import Party, User, Deck
@@ -79,7 +80,8 @@ class play(WebsocketConsumer):
             "username": self.username,
             "cards": [],
             "state": "waiting",
-            "score": 0
+            "score": 0,
+            "channel_name": self.channel_name
         }
 
         # Join room group
@@ -93,7 +95,7 @@ class play(WebsocketConsumer):
             "type": "player",
             "player": self.username
         }
-        self.send_to_player(player)
+        self.send_to_channel(player)
         self.broadcast_game_state()
 
     def disconnect(self, close_code):
@@ -153,28 +155,25 @@ class play(WebsocketConsumer):
     def handle_guess(self, data):
         guess = data.get("guess")
         player = self.room["players"][self.channel_name]
-        print(len(list(self.room["players"].values())))
 
         if self.room["phase"] == "qualifying" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
             card = self.room["deck"].pop()
             correct = self.evaluate_guess(guess, card, player["cards"])
             player["cards"].append(card)
             player["state"] = "done" if len(player["cards"]) >= 4 else "guessing"
-
-           
-            self.broadcast_game_state()
+   
             self.room["turn"] += 1
             if(self.room["turn"] >= len(list(self.room["players"].values()))):
                 self.room["turn"] = 0
                 
-            self.send(text_data=json.dumps({
+            self.send_to_group({
                 "type": "guess_result",
                 "correct": correct,
                 "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
                 "card": card
-            }))
+            })
 
-        if self.room["phase"] == "bus":
+        if self.room["phase"] == "bus" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
             card = self.room["deck"].pop()
 
             rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
@@ -190,17 +189,19 @@ class play(WebsocketConsumer):
 
             self.send(text_data=json.dumps({
                 "type": "guess_result",
+                "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
                 "correct": correct,
                 "card": card
             }))
-            self.broadcast_game_state()
+        
+        self.broadcast_game_state()
 
     def advance_phase(self):
         if(self.room["master"] == self.username):
             #new deck?
             #self.room["deck"] = self.generate_deck()
             random.shuffle(self.room["deck"])
-            if self.room["phase"] == "qualifying":
+            if self.room["phase"] == "qualifying" and all(len(p["cards"]) >= 4 for p in self.room["players"].values()):
                 self.room["phase"] = "pyramid"
                 self.setup_pyramid()
                 self.send_to_group({
@@ -209,13 +210,31 @@ class play(WebsocketConsumer):
                 })
 
             elif self.room["phase"] == "pyramid":
+                max_count = -1
+                turn = -1
+                for player in self.room["players"].values():
+                    num_cards = len(player["cards"])
+                    turn += 1
+                    if num_cards > max_count:
+                        max_count = num_cards
+                        self.room["turn"] = turn
+                    #elif num_cards == max_count:
+
                 self.room["phase"] = "bus"
-                self.setup_busfahren()
+                self.room["deck"] = self.generate_deck()
+                random.shuffle(self.room["deck"])
+                
                 self.send_to_group({
                     "type": "system",
                     "message": "Final Phase: Busfahren!"
                 })
-
+                self.send_to_group({
+                    "type": "guess_result",
+                    "correct": False,
+                    "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
+                    "card": self.room["deck"].pop()
+                })
+    	        
             self.broadcast_game_state()
 
     def setup_pyramid(self):
@@ -227,12 +246,25 @@ class play(WebsocketConsumer):
             }))
     def reveal_pyramidCard(self, data):
         if self.room["master"] == self.username:
+            order = data.get("id")
             self.send_to_group({
                     "type": "pyramidCard",
                     "pyramid_id": data.get("id")
                 })
-    def setup_busfahren(self):
-        self.bus_cards = [self.room["deck"].pop() for _ in range(5)]
+            
+            for player in self.room["players"].values():
+                for card in player["cards"][:]:
+                    if self.room["pyramid"][order][:-1] == card[:-1]:
+                        player["cards"].remove(card)
+                        channel_layer = get_channel_layer()
+
+                        self.send_to_player(player["channel_name"],{
+                                "type": "pyramid_reveal",
+                                "message": card
+                            }
+                        )
+                        
+            self.broadcast_game_state()
 
     def evaluate_guess(self, guess, card, previous_cards):
         rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
@@ -241,7 +273,8 @@ class play(WebsocketConsumer):
         rank = rank_order[card[:-1]]
 
         if len(previous_cards) == 0:
-            return (guess == "red" and suit in ['♥', '♦']) or (guess == "black" and suit in ['♠', '♣'])
+            #return (guess == "red" and suit in ['♥', '♦']) or (guess == "black" and suit in ['♠', '♣'])
+            return (guess == "red" and suit in ['H', 'D']) or (guess == "black" and suit in ['S', 'C'])
         elif len(previous_cards) == 1:
             prev_rank = rank_order[previous_cards[0][:-1]]
             return (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank)
@@ -276,7 +309,7 @@ class play(WebsocketConsumer):
         }
         self.send_to_group(state)
 
-    def send_to_player(self, message):
+    def send_to_channel(self, message):
         async_to_sync(self.channel_layer.send)(
             self.channel_name,
             {
@@ -284,7 +317,14 @@ class play(WebsocketConsumer):
                 "message": message
             }
         )
-
+    def send_to_player(self, channel, message):
+        async_to_sync(self.channel_layer.send)(
+            channel,
+            {
+                "type": "game_message",
+                "message": message
+            }
+        )
     def send_to_group(self, message):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,

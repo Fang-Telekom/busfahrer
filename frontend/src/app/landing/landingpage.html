@@ -36,8 +36,8 @@
                         </div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 10%">
-                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Beitreten </button>
-                        <button type="button" class="modalBtn" (click)="toggleModal('create')"> Erstellen </button>
+                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Create / Join </button>
+                        <button type="button" class="modalBtn" (click)="verify('', '')"> Create Random </button>
                     </div>
                 </div>
             </form>
@@ -45,28 +45,3 @@
     </div>
 </div>
 <!-- End of Modal party -->
-
-<!-- Modal Party Create -->
-<div id="party"  class="modal" [style.display]="modalVisible == 'create' ? 'block' : 'none'">
-    <div style="position: relative" class="modal-content animate">
-        <section>
-            <h1>Busfahrer - Party Starten</h1>
-            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
-        </section>
-        <section>
-            <form>
-                <div class="row">
-
-                    <label for="name"><b> Dein Name </b></label>
-                    <input type="text" placeholder="Name" name="name" #master>
-                    <div style="display: flex; justify-content: center; gap: 5%">
-                        <button type="button" class="modalBtn" (click)="verify(master.value, '')"> Erstellen </button>
-                        <button type="button" class="modalBtn" (click)="verify('', '')"> Play </button>
-                        <button type="button" class="modalBtn" (click)="toggleModal('party')"> Beitreten </button>
-                    </div>
-                </div>
-            </form>
-        </section>
-    </div>
-</div>
-<!-- End of Modal party create -->
