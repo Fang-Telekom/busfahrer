@@ -2,15 +2,23 @@
     <div class="hero">
         <img src="assets/busfahrer.webp" alt="Hero-Bild" class="blurred-bg rounded-img">
         
-        <div class="hero-text bordered-box">
-            <h1>Willkommen Busfarer</h1>
-            <p>Abra Kadabra Fillibumsda Magic the Gathering. Valorant Meisterschafft wird zum Mord.<br><br>
-                Abra Kadabra Fillibumsda Magic the Gathering. Valorant Meisterschafft wird zum Mord. Abra Kadabra Fillibumsda Magic the Gathering. Valorant Meisterschafft wird zum Mord.<br><br>
-                </p>
-                
-            <button (click)="toggleModal('party')" class="custom-button bordered-box">
-                Play
+        <div class="hero-text bordered-box" style="max-width: 350px; margin: 0 auto;">
+            <h1>Bereit?</h1>
+            <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient" style="color: #000000; font-weight: 900;">
+                LOS GEHT'S!
             </button>
+            <style>
+            .animated-gradient {
+                background: linear-gradient(270deg, #cf0707, #852424, #c4be10, #0da44c, #00cfff, #7a00ff, #ff00c8, #ff0000);
+                background-size: 1600% 1600%;
+                animation: gradientMove 5s ease infinite;
+            }
+            @keyframes gradientMove {
+                0% {background-position: 0% 50%;}
+                50% {background-position: 100% 50%;}
+                100% {background-position: 0% 50%;}
+            }
+            </style>
         </div>
     </div>
 </div>
@@ -19,13 +27,13 @@
 <div id="party"  class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
     <div style="position: relative" class="modal-content animate">
         <section>
-            <h1>Busfahrer - Party Beitreten</h1>
+            <h1 style="text-align: center;">Busfahrer - Party Beitreten</h1>
             <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
         </section>
         <section>
             <form action="/" method="post">
                 <div class="row">
-                    <div style="display: flex; justify-content: center; gap: 3%;">
+                    <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 16px;">
                         <div class="row" style="width: 50%">
                             <label for="name"><b> Name </b></label>
                             <input type="text" placeholder="Username" name="name" #name>
@@ -35,9 +43,9 @@
                             <input type="text" placeholder="Party Code" name="code" #code>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: center; gap: 10%">
-                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Create / Join </button>
-                        <button type="button" class="modalBtn" (click)="verify('', '')"> Create Random </button>
+                    <div style="display: flex; justify-content: center; gap: 32px;">
+                        <button type="button" class="modalBtn" style="width: 50%;" (click)="verify(name.value, code.value)"> Create / Join </button>
+                        <button type="button" class="modalBtn" style="width: 50%;" (click)="verify('', '')"> Create Random </button>
                     </div>
                 </div>
             </form>

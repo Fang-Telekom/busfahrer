@@ -15,8 +15,8 @@ export class WebSocketService {
     private connectionStatusSubject$ = new Subject<'connected' | 'error'>();
     public connectionStatus$ = this.connectionStatusSubject$.asObservable();
 
-    //private baseUrl = 'ws://localhost/ws/party/';
-    private baseUrl = 'ws://localhost:8000/ws/party/';
+    private baseUrl = 'ws://localhost/ws/party/';
+    //private baseUrl = 'ws://localhost:8000/ws/party/';
     
     private room = 'myroom'; // ToDo can be dynamic
 

@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx
+    image: nginx:latest
     ports:
       - "80:80"
     volumes:
@@ -11,12 +11,14 @@ services:
       - frontend
       - backend
       - redis
+
   redis:
     image: redis
     ports:
       - "6379:6379"
     networks:
       - daniel
+
   backend:
     build:
       context: ./backend
@@ -29,6 +31,7 @@ services:
       - redis
     networks:
       - daniel
+
   frontend:
     build: 
       context: ./frontend

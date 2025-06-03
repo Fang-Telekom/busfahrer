@@ -1,22 +1,18 @@
 <div class="sticky-header">
-    <div class="row">
-        <!-- Titel -->
-        <h1 style="z-index: 2;"> Busfahrer Like a King </h1>
-        
-        <nav aria-label="Marin Navigation Links">
-            <a href="/" aria-label="Home"> Home </a>
-            <a href="/" aria-label="Philosophie"> Philosophie </a>
+    <div class="row" style="align-items: center;">
+    
+        <div style="display: flex; align-items: center; justify-content: center; width: 100%;">
+            <img src="assets/logo.jpg" alt="Logo" style="height: 125px; margin-right: 1px; width: 100px;">
+            <h1 style="z-index: 2; display: inline-block; vertical-align: middle; margin: 0 16px;">Busfahrer - Ass im Ärmel?</h1>
+            <img src="assets/logo.jpg" alt="Logo" style="height: 125px; margin-right: 1px; width: 100px;">
+        </div>
+        <div style="margin-left: auto; transform: scale(0.9);">
+            <nav aria-label="Main Navigation Links" style="display: flex; gap: 32px;">
+            <a href="/" aria-label="Home"> START </a>
+            <a href="/" aria-label="Philosophie"> Unsere Vision </a>
+            </nav>
+        </div>
 
-            
-            <!-- <a href="/member aria-label="Member"> Mitglied </a> -->
-            <button *ngIf="!logged" class="navBtn" (click)="toggleModal('log')" style="width: auto;"> Login </button>
-            <a *ngIf="logged" href="/" aria-label="User"> {{user.name}} </a>
-            <a *ngIf="admin" href="/" aria-label="Admin"> Admin Page </a>
-        </nav>
-    </div>
-
-
-</div>
     <!-- Modal log -->
     <div id="log"  class="modal" [style.display]="modalVisible == 'log' ? 'block' : 'none'">
         <div style="position: relative" class="modal-content animate">

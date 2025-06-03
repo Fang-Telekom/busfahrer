@@ -112,11 +112,11 @@ import os;
 redis_host = os.getenv("REDIS_HOST", "127.0.0.1")
 CHANNEL_LAYERS = {
     "default": {
-        #"BACKEND": "channels.layers.InMemoryChannelLayer",
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [(redis_host, 6379)],
-        },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        #"BACKEND": "channels_redis.core.RedisChannelLayer",
+        #"CONFIG": {
+         #   "hosts": [(redis_host, 6379)],
+        #},
     },
 }
 
