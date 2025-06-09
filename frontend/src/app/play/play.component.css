@@ -133,19 +133,19 @@
         flex-direction: column;
         align-items: center;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        margin: 10px;
+        margin: 0 0 8px 0;
     }
     .card-display {
-        width: 100%;
-        max-width: 300px;
-        border-radius: 12px;
-        padding: 20px;
+        width: 80%;
+        max-width: 200px;
+        border-radius: 10px;
+        padding: 16px;
         text-align: center;
         color: black;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 10px;
+        margin: 0 0 8px 0;
     }
     .choice-panel {
         border-radius: 12px;
@@ -243,7 +243,7 @@
     .pyramid-row img {
         width: 120px;
         height: auto;
-        border-radius: 6px;
+        border-radius: 40px !important;
         display: block;
     }
 
@@ -327,16 +327,16 @@
         margin: 10px;
     }
     .card-display {
-        width: 100%;
-        max-width: 300px;
-        border-radius: 40px;
-        padding: 20px;
+        width: 80%;
+        max-width: 240px;
+        border-radius: 32px;
+        padding: 16px;
         text-align: center;
         color: black;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 10px;
+        margin: 8px;
     }
     .choice-panel {
         border-radius: 12px;
@@ -440,6 +440,8 @@ span.close {
     color: red;
 }
 
-img {
-    border-radius: 40px;
+img[src$=".png"] {
+        width: 350px;
+        border-radius: 59px;
+        padding: 16px;
 }

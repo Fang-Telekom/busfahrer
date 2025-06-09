@@ -27,7 +27,7 @@
 <div id="party"  class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
     <div style="position: relative" class="modal-content animate">
         <section>
-            <h1 style="text-align: center;">Busfahrer - Party Beitreten</h1>
+            <h1 style="text-align: center;">Busfahrer - Party beitreten</h1>
             <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
         </section>
         <section>
@@ -44,8 +44,8 @@
                         </div>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 32px;">
-                        <button type="button" class="modalBtn" style="width: 50%;" (click)="verify(name.value, code.value)"> Create / Join </button>
-                        <button type="button" class="modalBtn" style="width: 50%;" (click)="verify('', '')"> Create Random </button>
+                        <button type="button" class="modalBtn" style="width: 50%;" (click)="verify(name.value, code.value)"> Erstellen / Beitreten </button>
+                        <button type="button" class="modalBtn" style="width: 50%; background-color: #a52323; color: #ffffff;" (click)="verify('', '')"> Entscheide für mich! </button>
                     </div>
                 </div>
             </form>
