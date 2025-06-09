@@ -329,7 +329,7 @@
     .card-display {
         width: 100%;
         max-width: 300px;
-        border-radius: 12px;
+        border-radius: 40px;
         padding: 20px;
         text-align: center;
         color: black;
@@ -438,4 +438,8 @@ span.close {
 
 .close:hover, .close:focus {
     color: red;
+}
+
+img {
+    border-radius: 40px;
 }
