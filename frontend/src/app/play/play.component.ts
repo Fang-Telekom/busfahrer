@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './play.component.css'
 })
 export class PlayComponent implements OnInit, OnDestroy {
-  //suits = ['♠', '♥', '♦', '♣']
-  //Spades, Heart, Diamond, Clubs
+  // suits = ['♠', '♥', '♦', '♣']
+  // Spades, Heart, Diamond, Clubs
   private sub!: Subscription;
   public phase: String = "lobby";
   public players: {[key: string]:{
