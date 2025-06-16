@@ -15,6 +15,7 @@
 2. Run `npm install`
 3. If on Linux/macOS Run `python -m pip install Django`
 4. If on Windows Run `py -m pip install Django`
+5. generate self signing Key `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned key -out /etc/ssl/certs/nginx-selfsigned.crt`
 
 ### Serve Angular application on local machine
 

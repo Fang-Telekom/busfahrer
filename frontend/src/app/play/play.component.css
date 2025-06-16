@@ -440,7 +440,7 @@ span.close {
     color: red;
 }
 
-img[src$=".png"] {
+img[src$=".png"], img[src$=".jpg"]{
         width: 350px;
         border-radius: 59px;
         padding: 16px;

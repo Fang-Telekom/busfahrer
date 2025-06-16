@@ -28,7 +28,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   public card: string = "";
   public correct: boolean = false;
   public score: number = 0;
-  public pyramid: [] = [];
+  public pyramid: string[] = [];
   public openPyramid: boolean[] = Array(10).fill(false);
 
   public notification: "message" | null = null;
@@ -58,8 +58,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     });
 
     this.sub = this.wsService.messages$.subscribe((msg: any) => {
-      console.log('[Frontend] Message received:', msg);
-
+      
       const type = msg.type;
 
       if (type == 'state') {
@@ -89,7 +88,9 @@ export class PlayComponent implements OnInit, OnDestroy {
             this.message.message = "Du lagst falsch!";
         }
       } else if (type == "pyramid") {
+        
         this.pyramid = msg.pyramid;
+        console.log(msg.pyramid)
       } else if (type == "pyramidCard") {
         this.openPyramid[msg.pyramid_id] = true;
         console.log(this.openPyramid);
@@ -100,7 +101,6 @@ export class PlayComponent implements OnInit, OnDestroy {
       } else if (type == 'player') {
         this.player = msg.player;
       }
-      console.log(this.card);
     });
   }
 

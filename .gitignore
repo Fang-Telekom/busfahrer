@@ -41,6 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# SSL
+/nginx-selfsigned.crt
+/nginx-selfsigned.key
+
 /backend/*/__pycache__
 /backend/*/__pycache__/*
 /backend/*/migratons/__pycache__

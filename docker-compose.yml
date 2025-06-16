@@ -3,8 +3,11 @@ services:
     image: nginx:latest
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "./nginx-docker.conf:/etc/nginx/nginx.conf:ro"
+      - "./nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt:ro"
+      - "./nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key:ro"
     networks:
       - daniel
     depends_on:
