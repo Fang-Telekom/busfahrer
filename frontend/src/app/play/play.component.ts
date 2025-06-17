@@ -53,6 +53,9 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     this.wsService.connectionStatus$.subscribe((status) => {
       if (status === 'error') {
+        this.notification = "message";
+        this.message.title = "Party Ongoing";
+        this.message.message = "Party Crasher be Gone";
         // window.location.href="/"
       }
     });
@@ -110,7 +113,13 @@ export class PlayComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  messageAction(){
+    if(this.message.title=="Party Ongoing"){
+      window.location.href="/"
+      
+    }
+    this.toggleModal(null)
+  }
 
   handleEscKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && this.notification) {

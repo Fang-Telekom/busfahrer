@@ -41,6 +41,9 @@
                     <button (click)="sendGuess('higher')" class="bordered-box" aria-label="Draw a card">
                         Higher
                     </button>
+                    <button (click)="sendGuess('equal')"class="bordered-box" aria-label="Draw a card">
+                        Equal
+                    </button>
                     <button (click)="sendGuess('lower')"class="bordered-box" aria-label="Draw a card">
                         Lower
                     </button>
@@ -147,11 +150,14 @@
         
         <div class="overlay">
             <div class="player-panel">
-                <h2 id="player-name">Phase 3: {{turn_player}}</h2>
+                <h2 id="player-name">Lukes Father: {{turn_player}}</h2>
                 <h2>Score {{score}}</h2>
                 <div *ngIf="5 > score" class="choice-panel">
                     <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
                         Higher
+                    </button>
+                    <button (click)="sendGuessBus('equal')" class="bordered-box" aria-label="Draw a card">
+                        Equal
                     </button>
                     <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
                         Lower
@@ -176,15 +182,17 @@
 </div>
 
 <!-- Notification -->
-<div id="party"  (click)="toggleModal(null)" class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
+<div id="party"  (click)="messageAction()" class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
     <div style="position: relative" class="modal-content animate">
         <section>
             <h1>{{message.title}}</h1>
-            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+            <span (click)="messageAction()" class="close" title="close Modal">&times;</span>
         </section>
         <section>
             <p>{{message.message}}</p>
         </section>
+
+
     </div>
 </div>
 <!-- End of Notification -->

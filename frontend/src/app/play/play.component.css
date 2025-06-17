@@ -247,17 +247,15 @@
         align-items: center;
         z-index: 1;
         height: 100%;
-        gap: 10px;
     }
     .pyramid-row {
         display: flex;
         justify-content: center;
-        gap: 10px;
     }
     .pyramid-row img {
-        width: 120px;
+        width: 110px;
         height: auto;
-        border-radius: 40px !important;
+        border-radius: 29px !important;
         display: block;
     }
 
@@ -472,6 +470,6 @@ span.close {
 img[src$=".png"], img[src$=".jpg"]{
     width: 150%;    
     max-width: 550px;
-    border-radius: 59px;
+    border-radius: 29px;
     padding: 16px;
 }

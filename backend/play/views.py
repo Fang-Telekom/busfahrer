@@ -181,7 +181,7 @@ class play(WebsocketConsumer):
             #suit = card[-1]
             rank = rank_order[card[:-1]]
             prev_rank = rank_order[player["cards"][0][:-1]]
-            correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank)
+            correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
             
             player["cards"].append(card)
             player["score"] += int(correct)
@@ -276,7 +276,7 @@ class play(WebsocketConsumer):
             return (guess == "red" and suit in ['H', 'D']) or (guess == "black" and suit in ['S', 'C'])
         elif len(previous_cards) == 1:
             prev_rank = rank_order[previous_cards[0][:-1]]
-            return (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank)
+            return (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
         elif len(previous_cards) == 2:
             ranks = sorted([rank_order[c[:-1]] for c in previous_cards])
             return (guess == "inside" and ranks[0] < rank < ranks[1]) or (guess == "outside" and (rank < ranks[0] or rank > ranks[1]))
