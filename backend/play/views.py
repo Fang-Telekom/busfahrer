@@ -187,12 +187,12 @@ class play(WebsocketConsumer):
             player["score"] += int(correct)
             player["state"] = "done" if player["score"] > 4 else "guessing"
 
-            self.send_to_group(text_data=json.dumps({
+            self.send_to_group({
                 "type": "guess_result",
                 "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
                 "correct": correct,
                 "card": card
-            }))
+            })
         
         self.broadcast_game_state()
 
@@ -229,8 +229,7 @@ class play(WebsocketConsumer):
                     "message": "Final Phase: Busfahren!"
                 })
                 self.send_to_group({
-                    "type": "guess_result",
-                    "correct": False,
+                    "type": "bus_setup",
                     "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
                     "card": self.room["deck"].pop()
                 })

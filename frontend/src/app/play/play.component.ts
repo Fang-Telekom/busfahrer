@@ -90,16 +90,23 @@ export class PlayComponent implements OnInit, OnDestroy {
       } else if (type == "pyramid") {
         
         this.pyramid = msg.pyramid;
-        console.log(msg.pyramid)
       } else if (type == "pyramidCard") {
         this.openPyramid[msg.pyramid_id] = true;
-        console.log(this.openPyramid);
       } else if (type == "pyramid_reveal") {
         this.notification = "message";
         this.message.title = "Treffer!!!";
         this.message.message = `Der Wert deiner Karte ${msg.message} gleicht der aufgedeckten Karte! Verteile einen Schluck an einen Mitspieler!`;
       } else if (type == 'player') {
         this.player = msg.player;
+      } else if (type == "bus_setup"){
+        this.turn_player = msg.next_player;
+        this.card = msg.card;
+        this.notification = "message";
+        this.message.title = "Busfahrer Auswahl";
+        if(this.player == this.turn_player)
+          this.message.message = `Du Auserwhält, Junger Anakin Himmelsgeher`;
+        else
+          this.message.message = `Der Spieler ${this.turn_player} ist der Auserwhälte`;
       }
     });
   }
@@ -147,7 +154,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   }
 
   allOpened(): boolean {
-    return this.openPyramid.slice(0, 9).every(value => value === true);
+    return this.openPyramid.slice(0, 10).every(value => value === true);
   }
 
   sendGuessBus(guess: string) {
