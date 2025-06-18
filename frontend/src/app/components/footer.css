@@ -38,13 +38,13 @@
 
 .footer-section ul li a {
     color: white;
-    text-decoration: none;
     transition: 0.3s ease-in-out;
+    text-decoration: underline;
     border-bottom: 1px solid transparent;
 }
 
 .footer-section ul li a:hover {
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid rgb(17, 0, 255);
 }
 
 .footer-line {
