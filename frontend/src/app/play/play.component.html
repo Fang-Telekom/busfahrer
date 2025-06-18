@@ -39,13 +39,13 @@
                 </div>
                 <div *ngIf="getCardCount()==1" class="choice-panel">
                     <button (click)="sendGuess('higher')" class="bordered-box" aria-label="Draw a card">
-                        Higher
+                        Höher
                     </button>
                     <button (click)="sendGuess('equal')"class="bordered-box" aria-label="Draw a card">
-                        Equal
+                        Gleich
                     </button>
                     <button (click)="sendGuess('lower')"class="bordered-box" aria-label="Draw a card">
-                        Lower
+                        Niedriger
                     </button>
                 </div>
                 <div *ngIf="getCardCount()==2" class="choice-panel">
@@ -64,7 +64,7 @@
                         Karo
                     </button>
                     <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
-                        Pick
+                        Pik
                     </button>
                     <button (click)="sendGuess('C')" class="bordered-box" aria-label="Draw a card">
                         Kreuz
@@ -150,23 +150,23 @@
         
         <div class="overlay">
             <div class="player-panel">
-                <h2 id="player-name">Lukes Father: {{turn_player}}</h2>
+                <h2 id="player-name">Busfahrer: {{turn_player}}</h2>
                 <h2>Score {{score}}</h2>
                 <div *ngIf="5 > score" class="choice-panel">
                     <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
-                        Higher
+                        Höher
                     </button>
                     <button (click)="sendGuessBus('equal')" class="bordered-box" aria-label="Draw a card">
-                        Equal
+                        Gleich
                     </button>
                     <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
-                        Lower
+                        Niedriger
                     </button>
                 </div>
                 
                 <div *ngIf="score>4" class="choice-panel">
                     <button (click)="done()" class="bordered-box" aria-label="Draw a card">
-                        Done
+                        Fertig
                     </button>
                 </div>
             </div>
