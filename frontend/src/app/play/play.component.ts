@@ -92,11 +92,11 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.turn_player = msg.next_player;
         this.card = msg.card;
         this.notification = "message";
-        this.message.title = "Busfahrer Auswahl";
+        this.message.title = "Willkommen im Bus";
         if(this.player == this.turn_player)
-          this.message.message = `Du Auserwhält, Junger Anakin Himmelsgeher`;
+          this.message.message = `Du hast die Ehre, den Bus zu fahren!`;
         else
-          this.message.message = `Der Spieler ${this.turn_player} ist der Auserwhälte`;
+          this.message.message = `Der Spieler ${this.turn_player} ist der Auserwählte!`;
       }
     });
   }
