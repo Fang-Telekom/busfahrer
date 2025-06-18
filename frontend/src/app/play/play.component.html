@@ -24,7 +24,7 @@
 
     
   <div class="board">
-    <img src="assets/busfahrer.webp" alt="board" class="background" style="transform: scale(1.1);" />
+    <img src="assets/busfahrer.webp" alt="Background" class="background-image" style="transform: scale(1.1);" />
     <div class="overlay">
         <div class="player-panel">
             <h2 id="player-name">Player: {{turn_player}}</h2>
@@ -87,7 +87,7 @@
 <div id="party"  class="pyramid" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
 
     <div class="board">
-<img src="assets/busfahrer.webp" alt="Board" class="background" style="transform: scale(1.32);" />
+        <img src="assets/busfahrer.webp" alt="Board" class="background" />
         <div class="player-name">Phase 2: {{master}}</div>
 
         <div class="pyramid-container">
@@ -131,7 +131,8 @@
 <div id="party"  class="bus" [style.display]="phase == 'bus' ? 'block' : 'none'">
 
     <div class="board">
-<img src="assets/busfahrer.webp" alt="Background" class="background-image" style="transform: scale(1.4);" />        
+        <img src="assets/busfahrer.webp" alt="Background" class="background-image" />
+        
         <div class="overlay">
             <div class="player-panel">
                 <h2 id="player-name">Phase 3: {{player}}</h2>
