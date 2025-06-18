@@ -113,7 +113,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     clearTimeout(this.timeoutHandle);
     this.timeoutHandle = setTimeout(() => {
       this.notification = null;
-    }, 2400);
+    }, 5000);
   }
 
   handleEscKey = (event: KeyboardEvent) => {
