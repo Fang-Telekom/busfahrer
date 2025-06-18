@@ -113,14 +113,21 @@
         position: relative;
         z-index: 1;
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        margin-top: 5%;
         align-items: center;
-        height: 100%;
+        height: 70vh;
         padding: 1rem;
         flex-wrap: wrap;
     }
-
+    .row {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        flex-direction: row;
+        justify-content: space-around;
+    }
     .player-panel {
         width: 100%;
         max-width: 200px;
@@ -182,6 +189,13 @@
         transform: scale(1.1);
     }
 
+    .cards{
+        width: 70%;
+        max-width: 200px;
+        border-radius: 29px;
+        padding: 16px;
+    }
+
 }
 
 .pyramid {
@@ -233,17 +247,15 @@
         align-items: center;
         z-index: 1;
         height: 100%;
-        gap: 10px;
     }
     .pyramid-row {
         display: flex;
         justify-content: center;
-        gap: 10px;
     }
     .pyramid-row img {
-        width: 120px;
+        width: 110px;
         height: auto;
-        border-radius: 30px !important;
+        border-radius: 29px !important;
         display: block;
     }
 
@@ -281,6 +293,21 @@
         :hover {
             transform: scale(1.1);
         }
+    }
+    .row {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .cards{
+        width: 50%;
+        max-width: 200px;
+        border-radius: 29px;
+        padding: 16px;
     }
 }
 
@@ -441,7 +468,8 @@ span.close {
 }
 
 img[src$=".png"], img[src$=".jpg"]{
-        width: 360px;
-        border-radius: 69px;
-        padding: 16px;
+    width: 150%;    
+    max-width: 550px;
+    border-radius: 29px;
+    padding: 16px;
 }

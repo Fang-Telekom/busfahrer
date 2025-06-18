@@ -26,58 +26,67 @@
   <div class="board">
     <img src="assets/busfahrer.webp" alt="Background" class="background-image" style="transform: scale(1.1);" />
     <div class="overlay">
-        <div class="player-panel">
-            <h2 id="player-name">Player: {{turn_player}}</h2>
-            <div *ngIf="getCardCount()==0" class="choice-panel">
-                <button (click)="sendGuess('red')" class="bordered-box" aria-label="Draw a card">
-                    Rot
-                </button>
-                <button (click)="sendGuess('black')" class="bordered-box" aria-label="Draw a card">
-                    Schwarz
-                </button>
+        <div class="row" style="height: 70%;">
+            <div class="player-panel">
+                <h2 id="player-name">Player: {{turn_player}}</h2>
+                <div *ngIf="getCardCount()==0" class="choice-panel">
+                    <button (click)="sendGuess('red')" class="bordered-box" aria-label="Draw a card">
+                        Rot
+                    </button>
+                    <button (click)="sendGuess('black')" class="bordered-box" aria-label="Draw a card">
+                        Schwarz
+                    </button>
+                </div>
+                <div *ngIf="getCardCount()==1" class="choice-panel">
+                    <button (click)="sendGuess('higher')" class="bordered-box" aria-label="Draw a card">
+                        Higher
+                    </button>
+                    <button (click)="sendGuess('equal')"class="bordered-box" aria-label="Draw a card">
+                        Equal
+                    </button>
+                    <button (click)="sendGuess('lower')"class="bordered-box" aria-label="Draw a card">
+                        Lower
+                    </button>
+                </div>
+                <div *ngIf="getCardCount()==2" class="choice-panel">
+                    <button (click)="sendGuess('inside')" class="bordered-box" aria-label="Draw a card">
+                        Innerhalb
+                    </button>
+                    <button (click)="sendGuess('outside')" class="bordered-box" aria-label="Draw a card">
+                        Außerhalb
+                    </button>
+                </div>
+                <div *ngIf="getCardCount()==3" class="choice-panel">
+                    <button (click)="sendGuess('S')" class="bordered-box" aria-label="Draw a card">
+                        Herz
+                    </button>
+                    <button (click)="sendGuess('H')" class="bordered-box" aria-label="Draw a card">
+                        Karo
+                    </button>
+                    <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
+                        Pick
+                    </button>
+                    <button (click)="sendGuess('C')" class="bordered-box" aria-label="Draw a card">
+                        Kreuz
+                    </button>
+                </div>
+                <div *ngIf="getCardCount()>=4" class="choice-panel">
+                    <button (click)="advance()" class="bordered-box" aria-label="Draw a card">
+                        Nächste Phase
+                    </button>
+                </div>
             </div>
-            <div *ngIf="getCardCount()==1" class="choice-panel">
-                <button (click)="sendGuess('higher')" class="bordered-box" aria-label="Draw a card">
-                    Higher
-                </button>
-                <button (click)="sendGuess('lower')"class="bordered-box" aria-label="Draw a card">
-                    Lower
-                </button>
-            </div>
-            <div *ngIf="getCardCount()==2" class="choice-panel">
-                <button (click)="sendGuess('inside')" class="bordered-box" aria-label="Draw a card">
-                    Innerhalb
-                </button>
-                <button (click)="sendGuess('outside')" class="bordered-box" aria-label="Draw a card">
-                    Außerhalb
-                </button>
-            </div>
-            <div *ngIf="getCardCount()==3" class="choice-panel">
-                <button (click)="sendGuess('S')" class="bordered-box" aria-label="Draw a card">
-                    Herz
-                </button>
-                <button (click)="sendGuess('H')" class="bordered-box" aria-label="Draw a card">
-                    Karo
-                </button>
-                <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
-                    Pick
-                </button>
-                <button (click)="sendGuess('C')" class="bordered-box" aria-label="Draw a card">
-                    Kreuz
-                </button>
-            </div>
-            <div *ngIf="getCardCount()>=4" class="choice-panel">
-                <button (click)="advance()" class="bordered-box" aria-label="Draw a card">
-                    Nächste Phase
-                </button>
+
+            <div class="card-display" style="align-items: center;">
+                <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+                <img *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card: {{card}}" id="current-card" />
+                
             </div>
         </div>
-
-        <div class="card-display" style="align-items: center;">
-            <h1 style=" position: absolute; color: blueviolet; font-size: 64px;">{{card}}</h1>
-            <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
-            <img *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card: {{card}}" id="current-card" />
-            
+        <div class="row" style="height: 30%;">
+            <div *ngFor="let i of [0, 1, 2, 3]" class="card-display" >
+                <img class="cards" [src]="cards[i] ? 'assets/cards/' + cards[i] + '.jpg' : 'assets/card.png'" [alt]="cards[i] ? 'Card: ' + cards[i] : 'Empty card slot'"  />
+            </div>
         </div>
     </div>
   </div>
@@ -90,40 +99,46 @@
         <img src="assets/busfahrer.webp" alt="Board" class="background" />
         <div class="player-name">Phase 2: {{master}}</div>
 
-        <div class="pyramid-container">
-            <div class="pyramid-row">
-                <button *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
-            </div>
-            <div class="pyramid-row">
-                <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
-            </div>
-            <div class="pyramid-row">
-                <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
-            </div>
-            <div class="pyramid-row">
-                <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
-                <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
-                <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
+        <div class="row" style="height: 80%;">
+            <div class="pyramid-container">
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
+                </div>
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
+                </div>
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
+                </div>
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
+                </div>
             </div>
             <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
-            Nächste Phase
-        </button>
+                    Nächste Phase
+                </button>
         </div>
-        
+        <div class="row" style="height: 20%;">
+            <div *ngFor="let card of cards" class="card-display" >
+                <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
+            </div>
+        </div>
     </div>
 
 </div>
@@ -135,11 +150,14 @@
         
         <div class="overlay">
             <div class="player-panel">
-                <h2 id="player-name">Phase 3: {{player}}</h2>
+                <h2 id="player-name">Lukes Father: {{turn_player}}</h2>
                 <h2>Score {{score}}</h2>
                 <div *ngIf="5 > score" class="choice-panel">
                     <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
                         Higher
+                    </button>
+                    <button (click)="sendGuessBus('equal')" class="bordered-box" aria-label="Draw a card">
+                        Equal
                     </button>
                     <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
                         Lower
@@ -154,7 +172,6 @@
             </div>
 
             <div class="card-display" style="align-items: center;">
-                <h1 style=" position: absolute; color: blueviolet; font-size: 64px;">{{card}}</h1>
                 <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
                 <img *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card" id="current-card" />
                 
@@ -165,15 +182,17 @@
 </div>
 
 <!-- Notification -->
-<div id="party"  (click)="toggleModal(null)" class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
+<div id="party"  (click)="messageAction()" class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
     <div style="position: relative" class="modal-content animate">
         <section>
             <h1>{{message.title}}</h1>
-            <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
+            <span (click)="messageAction()" class="close" title="close Modal">&times;</span>
         </section>
         <section>
             <p>{{message.message}}</p>
         </section>
+
+
     </div>
 </div>
 <!-- End of Notification -->
