@@ -243,7 +243,7 @@
     .pyramid-row img {
         width: 120px;
         height: auto;
-        border-radius: 40px !important;
+        border-radius: 30px !important;
         display: block;
     }
 
@@ -336,7 +336,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 8px;
+        margin: 6px;
     }
     .choice-panel {
         border-radius: 12px;
@@ -441,7 +441,7 @@ span.close {
 }
 
 img[src$=".png"], img[src$=".jpg"]{
-        width: 350px;
-        border-radius: 59px;
+        width: 360px;
+        border-radius: 69px;
         padding: 16px;
 }

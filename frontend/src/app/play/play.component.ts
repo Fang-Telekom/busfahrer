@@ -34,6 +34,8 @@ export class PlayComponent implements OnInit, OnDestroy {
   public notification: "message" | null = null;
   public message: { title: string, message: string } = { title: "None", message: "error" };
 
+  private timeoutHandle: any;
+
   constructor(private wsService: WebSocketService) {}
 
   ngOnInit(): void {
@@ -48,7 +50,6 @@ export class PlayComponent implements OnInit, OnDestroy {
       window.location.href = "/";
     }
 
-    // ESC zum Schließen der Notification
     window.addEventListener('keydown', this.handleEscKey);
 
     this.wsService.connectionStatus$.subscribe((status) => {
@@ -58,7 +59,6 @@ export class PlayComponent implements OnInit, OnDestroy {
     });
 
     this.sub = this.wsService.messages$.subscribe((msg: any) => {
-      
       const type = msg.type;
 
       if (type == 'state') {
@@ -73,37 +73,33 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.correct = msg.correct;
         this.turn_player = msg.next_player;
         if (this.phase == "qualifying" && this.player == this.turn_player) {
-          this.notification = "message";
-          this.message.title = "Der Bus will weiterfahren!";
-          this.message.message = "Fahre fort oder der Bus fährt fort.";
-          setTimeout(() => {
-            this.notification = null;
-          }, 5000);
+          this.showNotification("Der Bus will weiterfahren!", "Fahre fort oder der Bus fährt fort.");
         } else if (this.phase == "bus" && this.player == this.turn_player) {
-          this.notification = "message";
-          this.message.title = "Benachrichtigung";
-          if (this.correct)
-            this.message.message = "Du lagst richtig!";
-          else
-            this.message.message = "Du lagst falsch!";
+          this.showNotification("Benachrichtigung", this.correct ? "Du lagst richtig!" : "Du lagst falsch!");
         }
       } else if (type == "pyramid") {
-        
         this.pyramid = msg.pyramid;
-        console.log(msg.pyramid)
+        console.log(msg.pyramid);
       } else if (type == "pyramidCard") {
         this.openPyramid[msg.pyramid_id] = true;
         console.log(this.openPyramid);
       } else if (type == "pyramid_reveal") {
-        this.notification = "message";
-        this.message.title = "Treffer!!!";
-        this.message.message = `Der Wert deiner Karte ${msg.message} gleicht der aufgedeckten Karte! Verteile einen Schluck an einen Mitspieler!`;
+        this.showNotification("Treffer!!!", `Der Wert deiner Karte ${msg.message} gleicht der aufgedeckten Karte! Verteile einen Schluck an einen Mitspieler!`);
       } else if (type == 'player') {
         this.player = msg.player;
       }
     });
   }
 
+  private showNotification(title: string, message: string) {
+    this.notification = "message";
+    this.message.title = title;
+    this.message.message = message;
+    clearTimeout(this.timeoutHandle);
+    this.timeoutHandle = setTimeout(() => {
+      this.notification = null;
+    }, 2400);
+  }
 
   handleEscKey = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && this.notification) {
@@ -111,7 +107,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
   };
 
-  ngOnDestroy1(): void {
+  ngOnDestroy(): void {
     this.sub.unsubscribe();
     this.wsService.close();
     window.removeEventListener('keydown', this.handleEscKey);
@@ -130,9 +126,7 @@ export class PlayComponent implements OnInit, OnDestroy {
       this.wsService.sendMessage({ action: 'start' });
       this.turn_player = this.master;
     } else {
-      this.notification = "message";
-      this.message.title = "Startklar?";
-      this.message.message = "Frag den Game Master, ob er bereit ist!";
+      this.showNotification("Startklar?", "Frag den Game Master, ob er bereit ist!");
     }
   }
 
@@ -140,9 +134,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     if (this.turn_player == this.player) {
       this.wsService.sendMessage({ action: 'guess', guess });
     } else {
-      this.notification = "message";
-      this.message.title = "Hab Geduld!";
-      this.message.message = "Du bist nicht am Zug.";
+      this.showNotification("Hab Geduld!", "Du bist nicht am Zug.");
     }
   }
 
@@ -158,9 +150,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     if (this.master == this.player) {
       this.wsService.sendMessage({ action: 'next_phase' });
     } else {
-      this.notification = "message";
-      this.message.title = "Stop!";
-      this.message.message = "Bitte den Game Master die nächste Runde zu starten!";
+      this.showNotification("Stop!", "Bitte den Game Master die nächste Runde zu starten!");
     }
   }
 
@@ -168,9 +158,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     if (this.master == this.player) {
       this.wsService.sendMessage({ action: 'reveal_pyramid', id });
     } else {
-      this.notification = "message";
-      this.message.title = "Stop!";
-      this.message.message = "Bitte den Game Master die nächste Karte aufzudecken!";
+      this.showNotification("Stop!", "Bitte den Game Master die nächste Karte aufzudecken!");
     }
   }
 
@@ -179,17 +167,16 @@ export class PlayComponent implements OnInit, OnDestroy {
   }
 
   done() {
-    this.notification = "message";
-    this.message.title = "Finito!";
-    this.message.message = "Vielen Dank fürs Spielen! Wir wünschen weiterhin einen guten Durst!";
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-    this.wsService.close();
+    this.showNotification("Finito!", "Vielen Dank fürs Spielen! Wir wünschen weiterhin einen guten Durst!");
   }
 
   toggleModal(modal: 'message' | null) {
     this.notification = modal;
+    if (modal !== null) {
+      clearTimeout(this.timeoutHandle);
+      this.timeoutHandle = setTimeout(() => {
+        this.notification = null;
+      }, 2400);
+    }
   }
 }
