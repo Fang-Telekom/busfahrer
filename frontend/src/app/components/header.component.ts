@@ -56,7 +56,7 @@ onWindowScroll() {
     return; // ignorieren, wenn kaum Unterschied
   }
 
-  if (scrollTop > this.lastScrollTop && scrollTop > 100) {
+  if (scrollTop > this.lastScrollTop && scrollTop > 60) {
     this.isHidden = true; // Scrollt nach unten
   } else {
     this.isHidden = false; // Scrollt nach oben

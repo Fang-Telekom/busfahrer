@@ -57,13 +57,13 @@
                     </button>
                 </div>
                 <div *ngIf="getCardCount()==3" class="choice-panel">
-                    <button (click)="sendGuess('S')" class="bordered-box" aria-label="Draw a card">
+                    <button (click)="sendGuess('H')" class="bordered-box" aria-label="Draw a card">
                         Herz
                     </button>
-                    <button (click)="sendGuess('H')" class="bordered-box" aria-label="Draw a card">
+                    <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
                         Karo
                     </button>
-                    <button (click)="sendGuess('D')" class="bordered-box" aria-label="Draw a card">
+                    <button (click)="sendGuess('S')" class="bordered-box" aria-label="Draw a card">
                         Pik
                     </button>
                     <button (click)="sendGuess('C')" class="bordered-box" aria-label="Draw a card">
