@@ -94,7 +94,16 @@ export class PlayComponent implements OnInit, OnDestroy {
       } else if (type == "pyramidCard") {
         this.openPyramid[msg.pyramid_id] = true;
       } else if (type == "pyramid_reveal") {
-        this.showNotification("Treffer!!!", `Der Wert deiner Karte ${msg.message} gleicht der aufgedeckten Karte! Verteile einen Schluck an einen Mitspieler!`);
+        let drink = "";
+        if (msg.pyramid_id > 1)
+          drink = "8 Schlücke";
+        else if (msg.pyramid_id > 3)
+          drink = "4 Schlücke";
+        else if (msg.pyramid_id > 6)
+          drink = "2 Schlücke";
+        else if (msg.pyramid_id > 10)
+          drink = "1 Schluck";
+        this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}!" Verteile ${drink}!`);
       } else if (type == 'player') {
         this.player = msg.player;
       } else if (type == "bus_setup"){

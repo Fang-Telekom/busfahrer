@@ -179,12 +179,13 @@ class play(WebsocketConsumer):
         if self.room["phase"] == "bus" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
             if(len(self.room["deck"]) > 0):
                 card = self.room["deck"].pop()
-                player["cards"].append(card)
+                
                 rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
                         '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
                 #suit = card[-1]
                 rank = rank_order[card[:-1]]
-                prev_rank = rank_order[player["cards"][0][:-1]]
+                prev_rank = rank_order[player["cards"][-1][:-1]]
+                player["cards"].append(card)
                 correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
                 
                 if(correct):
