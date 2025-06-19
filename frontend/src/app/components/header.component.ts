@@ -35,21 +35,35 @@ constructor(@Inject(PLATFORM_ID) platformId: Object) {
   }
   isHidden = false;
   headerHeight = 0;
+  lastScrollTop = 0;
+  scrollThreshold = 20;
   @ViewChild('header', { static: false }) header!: ElementRef;
   ngAfterViewInit(): void {
     if (this.isPlatFormBrowser) {
       this.headerHeight = this.header.nativeElement.offsetHeight;
       const main = document.querySelector('.main-content') as HTMLElement;
       if (main) {
-        main.style.marginTop = `${this.headerHeight}px`;
+        // padding-top statt margin-top, damit Inhalt nicht vom Header überlappt wird
+        main.style.paddingTop = `${this.headerHeight}px`;
       }
     }
   }
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    this.isHidden = scrollTop > 0//this.headerHeight / 2 //+ 100; // optional slide-out
+@HostListener('window:scroll', [])
+onWindowScroll() {
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (Math.abs(scrollTop - this.lastScrollTop) < this.scrollThreshold) {
+    return; // ignorieren, wenn kaum Unterschied
   }
+
+  if (scrollTop > this.lastScrollTop && scrollTop > 100) {
+    this.isHidden = true; // Scrollt nach unten
+  } else {
+    this.isHidden = false; // Scrollt nach oben
+  }
+
+  this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+}
 
   
   ngOnInit() {

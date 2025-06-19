@@ -51,7 +51,6 @@ from asgiref.sync import async_to_sync
 class play(WebsocketConsumer):
     party = {}
 
-    
     def connect(self):
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"{self.room_name}"
@@ -70,20 +69,25 @@ class play(WebsocketConsumer):
                 "pyramid": [], 
                 "bus_cards": [],
                 "phase": "lobby",
-                "deck": []
+                "deck": [],
+                "connections": set()
             }
-        elif(play.party[self.room_name]["phase"] != "lobby"):
+        elif(play.party[self.room_name]["phase"] != "lobby" and self.username not in play.party[self.room_name]["players"]):
             self.close()
-
+        
+        play.party[self.room_name]["connections"].add(self.channel_name)
         self.room = play.party[self.room_name]
-        self.room["players"][self.channel_name] = {
-            "username": self.username,
-            "cards": [],
-            "state": "waiting",
-            "score": 0,
-            "channel_name": self.channel_name
-        }
-
+        usernames = [player["username"] for player in play.party[self.room_name]["players"].values()]
+        if(self.username not in usernames):   
+            self.room["players"][self.username] = {
+                "username": self.username,
+                "cards": [],
+                "state": "waiting",
+                "score": 0,
+                "channel": self.channel_name
+            }
+        else:
+            self.room["players"][self.username]["channel"] = self.channel_name
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name, self.channel_name
@@ -103,14 +107,14 @@ class play(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name, self.channel_name
         )
+        room = self.room
+        if "connections" in room and self.channel_name in room["connections"]:
+            room["connections"].remove(self.channel_name)
 
-        if self.channel_name in self.room["players"]:
-            del self.room["players"][self.channel_name]
-
-        if not self.room["players"]:
+        if not room.get("connections"):
             del play.party[self.room_name]
-
-        self.broadcast_game_state()
+        else:
+            self.broadcast_game_state()
 
     # Receive message from WebSocket
     def receive(self, text_data):
@@ -154,7 +158,7 @@ class play(WebsocketConsumer):
 
     def handle_guess(self, data):
         guess = data.get("guess")
-        player = self.room["players"][self.channel_name]
+        player = self.room["players"][self.username]
 
         if self.room["phase"] == "qualifying" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
             card = self.room["deck"].pop()
@@ -166,33 +170,41 @@ class play(WebsocketConsumer):
             if(self.room["turn"] >= len(list(self.room["players"].values()))):
                 self.room["turn"] = 0
                 
-            self.send_to_group({
+            self.send_to_player(player["channel"],{
                 "type": "guess_result",
                 "correct": correct,
-                "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
                 "card": card
             })
 
         if self.room["phase"] == "bus" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
-            card = self.room["deck"].pop()
-            player["cards"].append(card)
-            rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
-                      '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
-            #suit = card[-1]
-            rank = rank_order[card[:-1]]
-            prev_rank = rank_order[player["cards"][0][:-1]]
-            correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
-            
-            player["score"] += int(correct)
-            player["state"] = "done" if player["score"] > 4 else "guessing"
+            if(len(self.room["deck"]) > 0):
+                card = self.room["deck"].pop()
+                player["cards"].append(card)
+                rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
+                        '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+                #suit = card[-1]
+                rank = rank_order[card[:-1]]
+                prev_rank = rank_order[player["cards"][0][:-1]]
+                correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
+                
+                if(correct):
+                    player["score"] += 1
+                else:
+                    player["score"] = 0
+                player["state"] = "done" if player["score"] > 4 else "guessing"
 
-            self.send_to_group({
-                "type": "guess_result",
-                "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
-                "correct": correct,
-                "card": card
-            })
-        
+                self.send_to_group({
+                    "type": "guess_result",
+                    "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
+                    "correct": correct,
+                    "card": card
+                })
+            else:
+                player["state"] = "done"
+                self.send_to_group({
+                    "type": "full_bus"
+                })
+                
         self.broadcast_game_state()
 
     def advance_phase(self):
@@ -210,18 +222,23 @@ class play(WebsocketConsumer):
 
             elif self.room["phase"] == "pyramid":
                 max_count = -1
-                turn = -1
-                for player in self.room["players"].values():
+                candidates = []
+
+                for i, player in enumerate(self.room["players"].values()):
                     num_cards = len(player["cards"])
-                    turn += 1
                     if num_cards > max_count:
                         max_count = num_cards
-                        self.room["turn"] = turn
-                    #elif num_cards == max_count:
+                        candidates = [i]
+                    elif num_cards == max_count:
+                        candidates.append(i)
+
+                
+                self.room["turn"] = random.choice(candidates)
 
                 self.room["phase"] = "bus"
                 self.room["deck"] = self.generate_deck()
                 random.shuffle(self.room["deck"])
+                
                 card = self.room["deck"].pop()
                 player["cards"].append(card)
                 self.send_to_group({
@@ -231,6 +248,10 @@ class play(WebsocketConsumer):
                 self.send_to_group({
                     "type": "bus_setup",
                     "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
+                    "candidates": [
+                        list(self.room["players"].values())[i]["username"]
+                        for i in candidates
+                        ],
                     "card": card
                 })
     	        
@@ -255,9 +276,8 @@ class play(WebsocketConsumer):
                 for card in player["cards"][:]:
                     if self.room["pyramid"][order][:-1] == card[:-1]:
                         player["cards"].remove(card)
-                        channel_layer = get_channel_layer()
-
-                        self.send_to_player(player["channel_name"],{
+                
+                        self.send_to_player(player["channel"],{
                                 "type": "pyramid_reveal",
                                 "message": card
                             }
@@ -305,7 +325,8 @@ class play(WebsocketConsumer):
                     "state": p["state"],
                     "cards": p["cards"] 
                 } for c, p in self.room["players"].items()
-            }
+            },
+            "turn": list(self.room["players"].values())[self.room["turn"]]["username"]
         }
         self.send_to_group(state)
 

@@ -191,8 +191,24 @@
         <section>
             <p>{{message.message}}</p>
         </section>
+    </div>
+</div>
+<!-- End of Notification -->
 
-
+<!-- Notification -->
+<div id="party"  (click)="messageAction()" class="modal" [style.display]="notification == 'candidates' ? 'block' : 'none'">
+    <div style="position: relative" class="modal-content animate">
+        <section>
+            <h1>Kandidaten</h1>
+            <span (click)="messageAction()" class="close" title="close Modal">&times;</span>
+        </section>
+        <section>
+            <ul id="candidates">
+                <li *ngFor="let player of candidates" [class.highlight]="player === highlight">
+                    {{ player }}
+                </li>
+            </ul>
+        </section>
     </div>
 </div>
 <!-- End of Notification -->
