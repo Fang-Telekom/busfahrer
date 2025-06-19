@@ -5,3 +5,8 @@
     left: 0;
     width: 100%;
 }
+.header-spacer {
+  height: 120px;
+  background: transparent;  
+  pointer-events: none; 
+}

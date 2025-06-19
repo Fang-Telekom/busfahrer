@@ -1,72 +1,104 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-  
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+
 @Component({
   selector: 'sticky-header',
   templateUrl: './header.html',
   styleUrl: './header.css',
-  standalone: false
+  standalone: false,
+  animations: [
+    trigger('slideInOut', [
+      state('in', style({ transform: 'translateY(0%)' })),
+      state('out', style({ transform: 'translateY(-100%)' })),
+      transition('in <=> out', animate('400ms ease-in-out')),
+    ])
+  ]
 })
 export class HeaderComponent {
-    modalVisible: "log" | null = null;
-    
-    admin = false;
-    logged = false;
-    user = {"id": null, "name": null, "surname": null, "picture": null, "lvl": 0};
-    isPlatFormBrowser
-
-    constructor(@Inject(PLATFORM_ID) platformId: Object) {
-      this.isPlatFormBrowser = isPlatformBrowser(platformId);
-    }
-   
-    ngOnInit() {
-      // why this platform browser or due to change cookies error despite having read cookie
-      if(!this.isPlatFormBrowser) return;
-
-      let cook = this.getCookie("user")
-      if(cook != null){
-        this.user = JSON.parse(cook)
-        
-        if(this.user["id"] != null){
-          this.logged = true
-
-          if(this.user["lvl"] > 1)
-            this.admin = true
-        }
+  modalVisible: "log" | null = null;
+  
+  admin = false;
+  logged = false;
+  user = {"id": null, "name": null, "surname": null, "picture": null, "lvl": 0};
+  isPlatFormBrowser:boolean
+  showHeader: boolean = true;
+constructor(@Inject(PLATFORM_ID) platformId: Object) {
+    this.isPlatFormBrowser = isPlatformBrowser(platformId);
+  }
+  isHidden = false;
+  headerHeight = 0;
+  @ViewChild('header', { static: false }) header!: ElementRef;
+  ngAfterViewInit(): void {
+    if (this.isPlatFormBrowser) {
+      this.headerHeight = this.header.nativeElement.offsetHeight;
+      const main = document.querySelector('.main-content') as HTMLElement;
+      if (main) {
+        main.style.marginTop = `${this.headerHeight}px`;
       }
     }
-    
-    regist = {
-      id:null,
-      vorname:"",
-      nachname:"",
-      password:"",
-      lvl:"1",
-      profilePicture: null as File | null,
-    }
+  }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    this.isHidden = scrollTop > 0//this.headerHeight / 2 //+ 100; // optional slide-out
+  }
 
-    selectedProfile(event: any) {
-      this.regist.profilePicture = event.target.files[0];
-    }
+  
+  ngOnInit() {
+    // why this platform browser or due to change cookies error despite having read cookie
+    if(!this.isPlatFormBrowser) return;
 
-    toggleModal(modal: 'log' | null){
-      this.modalVisible = modal;
-    }
-
-
-    async verify(name: String, pass: String): Promise<any>{
- 
-      let response = await fetch("http://127.0.0.1:8000/user/", {
-        headers: {'Content-Type': 'application/json'},
-        method: 'POST',
-        body: JSON.stringify({"name": name, "password": pass}),
-        credentials: "include"
-    })
-    let cookie = await response.json()
-    let d:Date = new Date();
-    if(response.status==200){
+    let cook = this.getCookie("user")
+    if(cook != null){
+      this.user = JSON.parse(cook)
       
+      if(this.user["id"] != null){
+        this.logged = true
+
+        if(this.user["lvl"] > 1)
+          this.admin = true
+      }
+    }
+  }
+  
+  regist = {
+    id:null,
+    vorname:"",
+    nachname:"",
+    password:"",
+    lvl:"1",
+    profilePicture: null as File | null,
+  }
+
+  selectedProfile(event: any) {
+    this.regist.profilePicture = event.target.files[0];
+  }
+
+  toggleModal(modal: 'log' | null){
+    this.modalVisible = modal;
+  }
+
+
+  async verify(name: String, pass: String): Promise<any>{
+
+    let response = await fetch("http://127.0.0.1:8000/user/", {
+      headers: {'Content-Type': 'application/json'},
+      method: 'POST',
+      body: JSON.stringify({"name": name, "password": pass}),
+      credentials: "include"
+  })
+  let cookie = await response.json()
+  let d:Date = new Date();
+  if(response.status==200){
+    
       d.setTime(d.getTime() + 20 * 60 * 1000);
       let expires:string = `expires=${d.toUTCString()}`;
       this.user = cookie

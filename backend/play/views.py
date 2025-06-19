@@ -175,7 +175,7 @@ class play(WebsocketConsumer):
 
         if self.room["phase"] == "bus" and self.username == list(self.room["players"].values())[self.room["turn"]]["username"]:
             card = self.room["deck"].pop()
-
+            player["cards"].append(card)
             rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
                       '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
             #suit = card[-1]
@@ -183,7 +183,6 @@ class play(WebsocketConsumer):
             prev_rank = rank_order[player["cards"][0][:-1]]
             correct = (guess == "higher" and rank > prev_rank) or (guess == "lower" and rank < prev_rank) or (guess == "equal" and rank == prev_rank)
             
-            player["cards"].append(card)
             player["score"] += int(correct)
             player["state"] = "done" if player["score"] > 4 else "guessing"
 
@@ -223,7 +222,8 @@ class play(WebsocketConsumer):
                 self.room["phase"] = "bus"
                 self.room["deck"] = self.generate_deck()
                 random.shuffle(self.room["deck"])
-                
+                card = self.room["deck"].pop()
+                player["cards"].append(card)
                 self.send_to_group({
                     "type": "system",
                     "message": "Final Phase: Busfahren!"
@@ -231,7 +231,7 @@ class play(WebsocketConsumer):
                 self.send_to_group({
                     "type": "bus_setup",
                     "next_player": list(self.room["players"].values())[self.room["turn"]]["username"],
-                    "card": self.room["deck"].pop()
+                    "card": card
                 })
     	        
             self.broadcast_game_state()
@@ -269,6 +269,7 @@ class play(WebsocketConsumer):
         rank_order = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
                       '8': 8, '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14}
         suit = card[-1]
+
         rank = rank_order[card[:-1]]
 
         if len(previous_cards) == 0:
@@ -302,7 +303,7 @@ class play(WebsocketConsumer):
                 p["username"]: {
                     "score": p["score"],
                     "state": p["state"],
-                    "cards": p["cards"] if c == self.channel_name else ["?"] * len(p["cards"])
+                    "cards": p["cards"] 
                 } for c, p in self.room["players"].items()
             }
         }

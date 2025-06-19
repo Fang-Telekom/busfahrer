@@ -199,6 +199,7 @@
 }
 
 .pyramid {
+    margin-top: 120px;
     .board {
         position: relative;
         width: 100%;

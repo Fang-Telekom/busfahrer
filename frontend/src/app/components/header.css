@@ -1,15 +1,18 @@
 .sticky-header {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    
+
     box-sizing: border-box;
     background-color: #141414 !important; /* Dunkleres Braun */
-    z-index: 3;;
-    transition: background-color 0.3s ease-in-out;
-}
+    z-index: 3;
+    transition: transform 1s ease-in-out;
 
+}
+.sticky-header.hidden {
+  transform: translateY(-100%);
+}
 
 .row {
     display: flex;
