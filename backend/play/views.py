@@ -260,10 +260,10 @@ class play(WebsocketConsumer):
     def setup_pyramid(self):
         self.room["pyramid"] = [self.room["deck"].pop() for _ in range(10)]
 
-        self.send(text_data=json.dumps({
+        self.send_to_group({
                 "type": "pyramid",
                 "pyramid": self.room["pyramid"]
-            }))
+            })
     def reveal_pyramidCard(self, data):
         if self.room["master"] == self.username:
             order = data.get("id")
