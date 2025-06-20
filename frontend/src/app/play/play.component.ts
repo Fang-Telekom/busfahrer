@@ -128,6 +128,13 @@ export class PlayComponent implements OnInit, OnDestroy {
       } else if(type == "full_bus"){
         this.showNotification("Bus Crash", "Du hast alles ausgesoffen!")
 
+      } else if(type == "system"){
+          if(msg.message == "Game started! First phase: Guessing."){
+              let audio = new Audio();
+              audio.src = "./assets/audio/motor.mp3";
+              audio.load();
+              audio.play();
+          }
       }
     });
   }
