@@ -82,9 +82,9 @@ export class PlayComponent implements OnInit, OnDestroy {
 
         if (this.phase == "qualifying" && this.correct) {
           
-          this.showNotification("Richtig!", `Verteile ${this.cards.length} Schlücke`);
+          this.showNotification("Richtig!", `Verteile ${this.cards.length + 1} Schlücke`);
         } else if (this.phase == "qualifying" && !this.correct){
-          this.showNotification("Falsch!", `Trinke ${this.cards.length} Schlücke`);
+          this.showNotification("Falsch!", `Trinke ${this.cards.length + 1} Schlücke`);
         }
 
         if (this.phase == "bus" && this.player == this.turn_player) {
@@ -96,13 +96,13 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.openPyramid[msg.pyramid_id] = true;
       } else if (type == "pyramid_reveal") {
         let drink = "";
-        if (msg.pyramid_id > 1)
+        if (msg.pyramid_id < 1)
           drink = "8 Schlücke";
-        else if (msg.pyramid_id > 3)
+        else if (msg.pyramid_id < 3)
           drink = "6 Schlücke";
-        else if (msg.pyramid_id > 6)
+        else if (msg.pyramid_id < 6)
           drink = "4 Schlücke";
-        else if (msg.pyramid_id > 10)
+        else if (msg.pyramid_id < 10)
           drink = "2 Schlücke";
         this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}! Verteile ${drink}!`);
       } else if (type == 'player') {
