@@ -1,25 +1,29 @@
 <div class="landingpage">
     <div class="hero">
-        <img src="assets/busfahrer.webp" alt="Hero-Bild" class="blurred-bg rounded-img">
+        <img src="assets/party.jpg" alt="Hero-Bild" class="blurred-bg rounded-img">
         
         <div class="hero-text bordered-box" style="max-width: 350px; margin: 0 auto;">
-            <h1>Bereit?</h1>
-            <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient" style="color: #000000; font-weight: 900;">
-                LOS GEHT'S!
-            </button>
-            <style>
-            .animated-gradient {
-                background: linear-gradient(270deg, #cf0707, #852424, #c4be10, #0da44c, #00cfff, #7a00ff, #ff00c8, #ff0000);
-                background-size: 1600% 1600%;
-                animation: gradientMove 5s ease infinite;
-            }
-            @keyframes gradientMove {
-                0% {background-position: 0% 50%;}
-                50% {background-position: 100% 50%;}
-                100% {background-position: 0% 50%;}
-            }
-            </style>
+            <div >
+                <h1>Bereit?</h1>
+                <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient" style="color: #000000; font-weight: 900;">
+                    LOS GEHT'S!
+                </button>
+                <style>
+                .animated-gradient {
+                    background: linear-gradient(270deg, #cf0707, #852424, #c4be10, #0da44c, #00cfff, #7a00ff, #ff00c8, #ff0000);
+                    background-size: 1600% 1600%;
+                    animation: gradientMove 5s ease infinite;
+                }
+                @keyframes gradientMove {
+                    0% {background-position: 0% 50%;}
+                    50% {background-position: 100% 50%;}
+                    100% {background-position: 0% 50%;}
+                }
+                </style>
+            </div>
+            
         </div>
+        
     </div>
 </div>
 

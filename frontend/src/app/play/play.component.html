@@ -1,30 +1,31 @@
 <div id="party" class="waiting" [style.display]="phase == 'lobby' ? 'block' : 'none'">
-    
-    <div class="hero">
-        <img src="assets/busfahrer.webp" alt="hero" class="rounded-img bakground" style="transform: scale(1.1);" >
-        
-        <div class="hero-text bordered-box">
-            <h1>Master: {{master}}</h1>
-            <h1>Room: {{room}}</h1>
-            <div class="centered-list">
-                <ul *ngFor="let name of getPlayerNames()">
-                    {{ name }}
-                </ul>
-            </div>
+  <div class="hero">
+    <img src="assets/wood.jpg" alt="Hintergrund" class="background-image rounded-img" />
 
-            <button (click)="startGame()" class="custom-button bordered-box">
-                Start the Game
-            </button>
-        </div>
+    <div class="hero-text bordered-box">
+      <h1>Master: {{ master }}</h1>
+      <h1>Room: {{ room }}</h1>
+
+      <div class="centered-list">
+        <ul>
+          <li *ngFor="let name of getPlayerNames()">
+            {{ name }}
+          </li>
+        </ul>
+      </div>
+
+      <button (click)="startGame()" class="custom-button bordered-box">
+        Spiel starten
+      </button>
     </div>
-
+  </div>
 </div>
 
 <div id="party"  class="qualifying" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
 
     
   <div class="board">
-    <img src="assets/busfahrer.webp" alt="Background" class="background-image" style="transform: scale(1.1);" />
+    <img src="assets/wood.jpg" alt="Background" class="background-image" style="transform: scale(1.1);" />
     <div class="overlay">
         <div class="row" style="height: 70%;">
             <div class="player-panel">
@@ -78,8 +79,8 @@
             </div>
 
             <div class="card-display" style="align-items: center;">
-                <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
-                <img *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card: {{card}}" id="current-card" />
+                <img class="card" *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+                <img class="card" *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card: {{card}}" id="current-card" />
                 
             </div>
         </div>
@@ -96,13 +97,13 @@
 <div id="party"  class="pyramid" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
 
     <div class="board">
-        <img src="assets/busfahrer.webp" alt="Board" class="background" />
+        <img src="assets/wood.jpg" alt="Board" class="background-image" />
         <div class="player-name">Phase 2: {{master}}</div>
 
-        <div class="row" style="height: 80%;">
+        <div class="row">
             <div class="pyramid-container">
                 <div class="pyramid-row">
-                    <button *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
+                    <button  *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
                     <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
                 </div>
                 <div class="pyramid-row">
@@ -134,7 +135,7 @@
                     Nächste Phase
                 </button>
         </div>
-        <div class="row" style="height: 20%;">
+        <div class="row">
             <div *ngFor="let card of cards" class="card-display" >
                 <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
             </div>
@@ -146,7 +147,7 @@
 <div id="party"  class="bus" [style.display]="phase == 'bus' ? 'block' : 'none'">
 
     <div class="board">
-        <img src="assets/busfahrer.webp" alt="Background" class="background-image" />
+        <img src="assets/wood.jpg" alt="Background" class="background-image" />
         
         <div class="overlay">
             <div class="player-panel">
@@ -172,8 +173,8 @@
             </div>
 
             <div class="card-display" style="align-items: center;">
-                <img *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
-                <img *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card" id="current-card" />
+                <img class="card" *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+                <img class="card" *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card" id="current-card" />
                 
             </div>
         </div>

@@ -1,194 +1,64 @@
-.waiting{
-    .hero {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 70vh;
-        overflow: hidden;
-    }
+.waiting {
+  .hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+  }
 
-    .hero img {
-        width: 100%; 
-        max-height: none;
-        display: block;
-    }
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+    z-index: 1;
+  }
 
-    .hero-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.6);
-        padding: 20px;
-        border-radius: 10px;
-        width: 40%;
-        height: 30%;
-    }
+  .custom-button {
+    display: inline-block;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 1rem;
+    border-radius: 4px;
+    border: 1px solid white;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px;
 
-    .bordered-box {
-        border: 1px solid white;
-        padding: 10px;
+    &:hover {
+      background-color: rgba(85, 85, 85, 0.4);
     }
+  }
 
-    .rounded-img {
-        border-radius: 10px;
-    }
+  .centered-list {
+    margin: 20px 0;
 
-    .blurred-bg {
-        filter: blur(2px);
-    }
-
-    .custom-button {
-        display: inline-block;
-        text-transform: uppercase;
-        padding: 14px 20px;
-        background-color: rgba(0, 0, 0, 0.6);
-        color: white;
-        text-decoration: none;
-        font-size: 1rem;
-        text-align: center;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out, opacity 0.3s;
-        border-bottom: 1px solid transparent;
-    }
-    .custom-button.bordered-box {
-        border: 1px solid white;
-    }
-
-    .custom-button:hover {
-        background-color: rgba(85, 85, 85, 0.4);
-        color: white;
-    }
     ul {
-        color: white;
-        text-decoration: none;
-        transition: 0.3s ease-in-out;
-        border-bottom: 1px solid transparent;
-        list-style-type: none;
+      list-style: none;
+      padding: 0;
+
+      li {
         text-align: left;
+        margin: 5px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
     }
-    .centered-list {
-        height: 50%;
-        list-style: none;
-        padding: 0;
-        text-align: center;
-    }
+  }
 }
 
 .qualifying{
-    .player-name {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        color: white;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px 15px;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        z-index: 2;
-    }
-    .board {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .background-image {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
-
-    .overlay {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        margin-top: 5%;
-        align-items: center;
-        height: 70vh;
-        padding: 1rem;
-        flex-wrap: wrap;
-    }
-    .row {
-        display: flex;
-        align-items: center; 
-        justify-content: center;
-        width: 100%;
-        position: relative;
-        flex-direction: row;
-        justify-content: space-around;
-    }
-    .player-panel {
-        width: 100%;
-        max-width: 200px;
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        margin: 0 0 8px 0;
-    }
-    .card-display {
-        width: 80%;
-        max-width: 200px;
-        border-radius: 10px;
-        padding: 16px;
-        text-align: center;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 0 0 8px 0;
-    }
-    .choice-panel {
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-    }
-
-    .deck-icon {
-        width: 60px;
-        height: auto;
-    }
-
-    button {
-        margin-top: 10px;
-        background-color: transparent;
-        color: white;
-        font-size: 1rem;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    button.bordered-box {
-        border: 1px solid white;
-        padding: 10px;
-    }
-
-    button:hover {
-        transform: scale(1.1);
-    }
-
+    
     .cards{
         width: 70%;
         max-width: 200px;
@@ -197,48 +67,8 @@
     }
 
 }
-
 .pyramid {
-    .board {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
-    .player-name {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        color: white;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px 15px;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        z-index: 2;
-    }
-    .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-        border-radius: 10px;
-    }
-    .player-name {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        color: white;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px 15px;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        z-index: 2;
-    }
+
     .pyramid-container {
         position: relative;
         display: flex;
@@ -252,57 +82,27 @@
         display: flex;
         justify-content: center;
     }
-    .pyramid-row img {
+    .pyramid-row img, button img {
         width: 110px;
         height: auto;
-        border-radius: 29px !important;
+        border-radius: 29px;
         display: block;
-    }
-
-    button {
+        margin-top: 10px;
+        padding: 10px 10px;
         background-color: transparent;
         border: none;
-        cursor: pointer;
-        transition: transform 0.2s;
-        padding: 0;
-        display: inline-block;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-    }
-
-    button img {
-        width: 120px;
-        height: auto;
-        border-radius: 6px;
-    }
-
-    .bordered-box{
-        margin-top: 15px;
-        background-color: transparent;
-        color: white;
-        font-size: 1rem;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-        border: 1px solid white;
-        padding: 10px;
-
-        :hover {
-            transform: scale(1.1);
+        padding: 14px 20px;
         }
-    }
     .row {
-        display: flex;
-        align-items: center; 
-        justify-content: center;
-        width: 100%;
-        position: relative;
-        flex-direction: row;
-        justify-content: space-around;
-    }
+        &:first-child {
+        height: 80%;
+        }
+
+        &:last-child {
+        height: 20%;
+        }
+    }  
+    
     .cards{
         width: 50%;
         max-width: 200px;
@@ -311,97 +111,59 @@
     }
 }
 
-.bus{
-    .board {
-        position: relative;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .background-image {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
-    }
-
-    .overlay {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        height: 100%;
-        padding: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .player-panel {
-        width: 100%;
-        max-width: 200px;
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        margin: 10px;
-    }
-    .card-display {
-        width: 80%;
-        max-width: 240px;
-        border-radius: 32px;
-        padding: 16px;
-        text-align: center;
-        color: black;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 6px;
-    }
-    .choice-panel {
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-    }
-
-    .deck-icon {
+.deck-icon {
         width: 60px;
         height: auto;
-    }
-
-    button {
-        margin-top: 10px;
-        background-color: transparent;
-        color: white;
-        font-size: 1rem;
-        border-radius: 4px;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    button.bordered-box {
-        border: 1px solid white;
-        padding: 10px;
-    }
-
-    button:hover {
-        transform: scale(1.1);
-    }
-
+}
+.card{
+    width: 150%;    
+    max-width: 550px;
+    border-radius: 29px;
+    padding: 16px;
+}
+.board {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
+.overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+button {
+    background-color: transparent;
+    border-radius: 29px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+
+button.bordered-box {
+    border: 1px solid white;
+    padding: 10px;
+}
+.row {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        flex-direction: row;
+        justify-content: space-around;
+    }
 .modal{
     display: none; /* Hidden by default */
     position: fixed;
@@ -435,9 +197,9 @@
         border: none;
         cursor: pointer;
         width: 40%;
-        border-radius: 4px;
         transition: opacity 0.3s;
         border-bottom: 1px solid transparent;
+        border-radius: 29px;
     }
     
     button:hover {
@@ -453,6 +215,74 @@
     }
 
 }
+.bordered-box{
+    margin-top: 15px;
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 29px;
+}
+.player-name {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 2;
+}
+.player-panel {
+    width: 100%;
+    max-width: 200px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin: 0 0 8px 0;
+}
+.card-display {
+    width: 80%;
+    max-width: 200px;
+    border-radius: 29px;
+    padding: 16px;
+    text-align: center;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0 8px 0;
+}
+.choice-panel {
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    border-radius: 10px;
+    filter: brightness(0.4);
+}
+
 span.close {
     position: absolute;
     top: 5%;
@@ -467,12 +297,7 @@ span.close {
     color: red;
 }
 
-img[src$=".png"], img[src$=".jpg"]{
-    width: 150%;    
-    max-width: 550px;
-    border-radius: 29px;
-    padding: 16px;
-}
+
 
 #candidates li {
   padding: 8px;

@@ -73,7 +73,7 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.room = msg.room;
         this.turn_player = msg.turn;
 
-        if (this.phase == "qualifying" && this.player == this.turn_player)
+        if (this.phase == "qualifying" && this.player == this.turn_player && this.notification == null)
           this.showNotification("Der Bus will weiterfahren!", "Fahre fort oder der Bus fährt fort.");
     
       } else if (type == "guess_result") {
@@ -81,9 +81,10 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.correct = msg.correct;
 
         if (this.phase == "qualifying" && this.correct) {
-          this.showNotification("Richtig!", "Du lagst Richtig!");
+          
+          this.showNotification("Richtig!", `Verteile ${this.cards.length} Schlücke`);
         } else if (this.phase == "qualifying" && !this.correct){
-          this.showNotification("Falsch!", "Du liegst Falsch!");
+          this.showNotification("Falsch!", `Trinke ${this.cards.length} Schlücke`);
         }
 
         if (this.phase == "bus" && this.player == this.turn_player) {
@@ -98,12 +99,12 @@ export class PlayComponent implements OnInit, OnDestroy {
         if (msg.pyramid_id > 1)
           drink = "8 Schlücke";
         else if (msg.pyramid_id > 3)
-          drink = "4 Schlücke";
+          drink = "6 Schlücke";
         else if (msg.pyramid_id > 6)
-          drink = "2 Schlücke";
+          drink = "4 Schlücke";
         else if (msg.pyramid_id > 10)
-          drink = "1 Schluck";
-        this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}!" Verteile ${drink}!`);
+          drink = "2 Schlücke";
+        this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}! Verteile ${drink}!`);
       } else if (type == 'player') {
         this.player = msg.player;
       } else if (type == "bus_setup"){
@@ -111,8 +112,19 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.card = msg.card;
         this.candidates = msg.candidates
 
-        this.notification = "candidates"
-        this.animateSelection()
+        if(this.candidates.length > 1){
+          this.notification = "candidates"
+          this.animateSelection()
+        }
+        else{
+          this.notification = "message";
+          this.message.title = "Willkommen im Bus";
+          if(this.player == this.turn_player)
+            this.message.message = `Du hast die Ehre, den Bus zu fahren!`;
+          else
+            this.message.message = `Der Spieler ${this.turn_player} ist der Auserwählte!`;       
+    
+        }
       } else if(type == "full_bus"){
         this.showNotification("Bus Crash", "Du hast alles ausgesoffen!")
 
@@ -138,7 +150,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   messageAction(){
 
     this.toggleModal(null)
-    if(this.message.title=="Party Ongoing"){
+    if(this.message.title=="Party Ongoing" || this.message.title=="Finito!"){
       window.location.href="/"      
     }else if(this.highlight != ""){
       this.highlight = ""
