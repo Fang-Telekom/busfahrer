@@ -95,7 +95,8 @@ export class PlayComponent implements OnInit, OnDestroy {
       } else if (type == "pyramidCard") {
         this.openPyramid[msg.pyramid_id] = true;
 
-        let drink;
+      } else if (type == "pyramid_reveal") {
+         let drink;
         if (msg.pyramid_id < 1)
           drink = 8;
         else if (msg.pyramid_id < 3)
@@ -105,8 +106,6 @@ export class PlayComponent implements OnInit, OnDestroy {
         else if (msg.pyramid_id < 10)
           drink = 2;
         this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}! Verteile ${drink} Schlücke!`);
-      } else if (type == "pyramid_reveal") {
-        
       } else if (type == 'player') {
         this.player = msg.player;
       } else if (type == "bus_setup"){

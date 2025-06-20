@@ -280,6 +280,7 @@ class play(WebsocketConsumer):
                 
                         self.send_to_player(player["channel"],{
                                 "type": "pyramid_reveal",
+                                "pyramid_id": data.get("id"),
                                 "message": card
                             }
                         )
