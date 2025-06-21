@@ -138,15 +138,19 @@
 }
 .modal-content {
     width: 30%;
-    min-width: 400px;
-    min-width: 600px;
-    left: 35%;
-    top: 30%;
+    min-height: 500px;
+    max-width: 800px;
+
     padding: 20px;
     display: flex;
-    position: fixed;
     flex-direction: column;
     align-items: center;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
