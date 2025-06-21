@@ -1,11 +1,66 @@
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    border-radius: 10px;
+    filter: brightness(0.6) blur(2px);
+}
+.bordered-box {
+    border: 1px solid white;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
 .hero {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     overflow: hidden;
+
+    .row {
+
+        &:first-child {
+            height: 10%;
+            margin-top: 5%;
+            max-width: 350px;
+        }
+
+        &:last-child {
+            display: flex;
+            height: 60%;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            
+            .bordered-box {
+                width: 500px;
+                min-height: 420px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+                background: rgba(0, 0, 0, 0.8);
+            }
+
+            .bordered-box img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                border-radius: 8px;
+                margin: 10px 0;
+
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
+    }
 }
 
 .hero img {
@@ -13,40 +68,35 @@
     max-height: none;
     display: block;
 }
-
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 20px;
-    border-radius: 10px;
-    width: 70%;
+.row {
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-.bordered-box {
-    border: 1px solid white;
-    padding: 10px;
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+    flex-wrap: wrap;
 }
 
-.rounded-img {
-    border-radius: 10px;
-}
 
-.blurred-bg {
-    filter: blur(2px);
-    transform: scale(1.2);
-}
 
 .custom-button {
     display: inline-block;
     text-transform: uppercase;
     padding: 14px 20px;
     background-color: rgba(0, 0, 0, 0.6);
-    color: white;
     text-decoration: none;
     font-size: 1rem;
     text-align: center;
@@ -55,6 +105,8 @@
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, opacity 0.3s;
     border-bottom: 1px solid transparent;
+    color: #000000;
+    font-weight: 900;
 }
 .custom-button.bordered-box {
     border: 1px solid white;
@@ -107,10 +159,6 @@
         background-color: rgba(39, 39, 39, 0.4);
     }
 
-    row {
-        width: 100%;
-        flex-direction: column
-    }
     section{
         width: 80%
     }
@@ -154,4 +202,33 @@ span.close {
 @keyframes animatezoom {
     from { transform: scale(0); }
     to { transform: scale(1); }
+}
+.animated-gradient {
+    background: linear-gradient(135deg, #ff4e50, #fc913a, #f9d423, #eae374, #e1f5c4);
+    background-size: 400% 400%;
+    animation: gradientMove 6s ease infinite;
+    color: #fff;
+    font-weight: 800;
+    text-transform: uppercase;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.glow-button:hover {
+    transform: scale(1.07);
+    box-shadow:
+        0 0 15px rgba(255, 200, 100, 0.4),
+        0 0 30px rgba(255, 100, 150, 0.3);
 }

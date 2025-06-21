@@ -81,10 +81,15 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.correct = msg.correct;
 
         if (this.phase == "qualifying" && this.correct) {
-          
-          this.showNotification("Richtig!", `Verteile ${this.cards.length + 1} Schlücke`);
+          if(this.cards.length == 0)
+            this.showNotification("Richtig!", `Verteile ${this.cards.length + 1} Schluck`);
+          else
+            this.showNotification("Richtig!", `Verteile ${this.cards.length + 1} Schlücke`);
         } else if (this.phase == "qualifying" && !this.correct){
-          this.showNotification("Falsch!", `Trinke ${this.cards.length + 1} Schlücke`);
+          if(this.cards.length == 0)
+            this.showNotification("Falsch!", `Trinke ${this.cards.length + 1} Schluck`);
+          else
+            this.showNotification("Falsch!", `Trinke ${this.cards.length + 1} Schlücke`);
         }
 
         if (this.phase == "bus" && this.player == this.turn_player) {

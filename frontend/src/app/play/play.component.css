@@ -156,14 +156,14 @@ button.bordered-box {
     padding: 10px;
 }
 .row {
-        display: flex;
-        align-items: center; 
-        justify-content: center;
-        width: 100%;
-        position: relative;
-        flex-direction: row;
-        justify-content: space-around;
-    }
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-around;
+}
 .modal{
     display: none; /* Hidden by default */
     position: fixed;

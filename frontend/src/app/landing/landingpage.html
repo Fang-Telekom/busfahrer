@@ -1,29 +1,34 @@
 <div class="landingpage">
+    
+    
     <div class="hero">
-        <img src="assets/party.jpg" alt="Hero-Bild" class="blurred-bg rounded-img">
+        <img src="assets/party.jpg" alt="Hero-Bild" class="background-image">
         
-        <div class="hero-text bordered-box" style="max-width: 350px; margin: 0 auto;">
-            <div >
-                <h1>Bereit?</h1>
-                <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient" style="color: #000000; font-weight: 900;">
+        <div class = container>
+            <div class="row bordered-box">
+                <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient glow-button">
                     LOS GEHT'S!
                 </button>
-                <style>
-                .animated-gradient {
-                    background: linear-gradient(270deg, #cf0707, #852424, #c4be10, #0da44c, #00cfff, #7a00ff, #ff00c8, #ff0000);
-                    background-size: 1600% 1600%;
-                    animation: gradientMove 5s ease infinite;
-                }
-                @keyframes gradientMove {
-                    0% {background-position: 0% 50%;}
-                    50% {background-position: 100% 50%;}
-                    100% {background-position: 0% 50%;}
-                }
-                </style>
             </div>
-            
+
+            <div class="row">
+                <div class="bordered-box">
+                    <h2>Phase 1: 4 Runden</h2>
+                    <img src="assets/phase1.png" alt="4 Runden Kartenphase">
+                    <p>Du musst in vier Fragenrunden jeweils richtig raten, welche Karte als nächstes kommt (z.B. Farbe, Wert, ob höher oder tiefer). Wer falsch liegt, muss trinken.</p>
+                </div>
+                <div class="bordered-box">
+                    <h2>Phase 2: Pyramide</h2>
+                    <img src="assets/phase2.png" alt="Pyramidenrunde">
+                    <p>In einer Kartenpyramide werden nach und nach Karten aufgedeckt. Hast du dieselbe Karte wie aufgedeckt, darfst du jemanden zum Trinken auffordern – oder du musst selbst trinken.</p>
+                </div>
+                <div class="bordered-box">
+                    <h2>Phase 3: Busfahrer</h2>
+                    <img src="assets/phase3.png" alt="Busfahrer Finale">
+                    <p>Der Spieler mit den meisten Fehlern wird Busfahrer. Jetzt heißt es: eine Kartenreihe fehlerfrei durchspielen, indem du richtig rätst, ob die nächste Karte höher oder niedriger ist. Fehler führen zu Strafschlucken!</p>
+                </div>
+            </div>
         </div>
-        
     </div>
 </div>
 
@@ -36,21 +41,20 @@
         </section>
         <section>
             <form action="/" method="post">
-                <div class="row">
-                    <div style="display: flex; justify-content: center; gap: 32px; margin-bottom: 16px;">
-                        <div class="row" style="width: 50%">
+                <div >
+                    <div class="row" >
+                        <div style="width: 40%">
                             <label for="name"><b> Name </b></label>
                             <input type="text" placeholder="Username" name="name" #name>
                         </div>
-                        <div class="row" style="width: 50%">
+                        <div style="width: 40%">
                             <label for="code"><b> Party Code </b></label>
                             <input type="text" placeholder="Party Code" name="code" #code>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: center; gap: 32px;">
-                        <button type="button" class="modalBtn" style="width: 33%;" (click)="verify(name.value, code.value)"> Beitreten </button>
-                        <button type="button" class="modalBtn" style="width: 33%;" (click)="verify(name.value, code.value)"> Erstellen </button>
-                        <button type="button" class="modalBtn" style="width: 33%; background-color: #a52323; color: #ffffff;" (click)="verify('', '')"> Entscheide für mich! </button>
+                    <div class="row">
+                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Beitreten </button>
+                        <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Erstellen </button>
                     </div>
                 </div>
             </form>

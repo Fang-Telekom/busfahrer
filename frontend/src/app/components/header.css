@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 10%;
-  background-color: #4D201B;
+  background-color: 	#7B5E3B;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   z-index: 9999;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;

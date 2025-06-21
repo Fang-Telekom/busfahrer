@@ -1,5 +1,5 @@
 .footer {
-    background-color: #1B4D3F !important; 
+    background-color: #2E2E2E !important; 
     color: white;
     padding: 40px 0;
     text-align: center;
@@ -44,7 +44,7 @@
 }
 
 .footer-section ul li a:hover {
-    border-bottom: 1px solid #8C6B54;
+    border-bottom: 1px solid #FFC857;
 }
 
 .footer-line {
