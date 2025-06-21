@@ -178,7 +178,6 @@ button.bordered-box {
 
 .modal-content {
     width: 30%;
-    min-height: 500px;
     max-width: 800px;
 
     padding: 20px;
