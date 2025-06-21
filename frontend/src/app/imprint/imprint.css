@@ -41,7 +41,7 @@
 }
 
 .impressum {
-  background-color: #fef9c3; /* light yellow */
+  background-color: #fef9c3;
   padding: 2rem;
   border-radius: 1.5rem;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -76,5 +76,5 @@
 }
 
 .impressum-content a:hover {
-  color: #78350f;
+  color: #FFC857;
 }

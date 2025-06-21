@@ -177,6 +177,8 @@ button.bordered-box {
 .modal-content {
     width: 30%;
     left: 35%;
+    min-width: 400px;
+    min-width: 600px;
     top: 30%;
     padding: 20px;
     display: flex;
@@ -223,6 +225,7 @@ button.bordered-box {
     border: 1px solid white;
     padding: 10px;
     border-radius: 29px;
+    min-width: 80px;
 }
 .player-name {
     position: absolute;

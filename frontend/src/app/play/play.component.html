@@ -141,48 +141,48 @@
             </div>
             <div class="underline"></div>
         </div>
-
-        <div class="row">
-            <div class="pyramid-container">
-                <div class="pyramid-row">
-                    <button  *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
+        <div class="overlay">
+            <div class="row">
+                <div class="pyramid-container">
+                    <div class="pyramid-row">
+                        <button  *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
+                    </div>
+                    <div class="pyramid-row">
+                        <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
+                    </div>
+                    <div class="pyramid-row">
+                        <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
+                    </div>
+                    <div class="pyramid-row">
+                        <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
+                        <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
+                        <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
+                    </div>
                 </div>
-                <div class="pyramid-row">
-                    <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
-                </div>
-                <div class="pyramid-row">
-                    <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
-                </div>
-                <div class="pyramid-row">
-                    <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
-                    <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
-                    <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
+                <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
+                        Nächste Phase
+                </button>
+            </div>
+            <div class="row">
+                <div *ngFor="let card of cards" class="card-display" >
+                    <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
                 </div>
             </div>
-            <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
-                    Nächste Phase
-            </button>
         </div>
-        <div class="row">
-            <div *ngFor="let card of cards" class="card-display" >
-                <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
-            </div>
-        </div>
-            
     </div>
 
 </div>
