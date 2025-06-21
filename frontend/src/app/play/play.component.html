@@ -26,6 +26,28 @@
     
   <div class="board">
     <img src="assets/wood.jpg" alt="Background" class="background-image" style="transform: scale(1.1);" />
+    <div class="icon-row-wrapper">
+            <div class="icon-line">
+                
+                <div class="icon-container">
+                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                    </svg>
+
+
+                    <img src="assets/vier.png" alt="Vier" class="icon">
+                </div>
+                <div class="icon-container">
+                    <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+                </div>
+                <div class="icon-container">
+                    <img src="assets/bus.png" alt="Busfahrer" class="icon">
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
+    
     <div class="overlay">
         <div class="row" style="height: 70%;">
             <div class="player-panel">
@@ -98,7 +120,27 @@
 
     <div class="board">
         <img src="assets/wood.jpg" alt="Board" class="background-image" />
-        <div class="player-name">Phase 2: {{master}}</div>
+        <div class="icon-row-wrapper">
+            <div class="icon-line">
+                
+                <div class="icon-container">
+                    <img src="assets/vier.png" alt="Vier" class="icon">
+                </div>
+                <div class="icon-container">
+                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                    </svg>
+
+
+                    <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+                </div>
+                <div class="icon-container">
+                    <img src="assets/bus.png" alt="Busfahrer" class="icon">
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
 
         <div class="row">
             <div class="pyramid-container">
@@ -133,13 +175,14 @@
             </div>
             <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
                     Nächste Phase
-                </button>
+            </button>
         </div>
         <div class="row">
             <div *ngFor="let card of cards" class="card-display" >
                 <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
             </div>
         </div>
+            
     </div>
 
 </div>
@@ -148,7 +191,27 @@
 
     <div class="board">
         <img src="assets/wood.jpg" alt="Background" class="background-image" />
-        
+        <div class="icon-row-wrapper">
+            <div class="icon-line">
+                
+                <div class="icon-container">
+                    <img src="assets/vier.png" alt="Vier" class="icon">
+                </div>
+                <div class="icon-container">
+                     <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+                </div>
+                <div class="icon-container">
+                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                    </svg>
+
+
+                   <img src="assets/bus.png" alt="Busfahrer" class="icon">
+                </div>
+            </div>
+            <div class="underline"></div>
+        </div>
         <div class="overlay">
             <div class="player-panel">
                 <h2 id="player-name">Busfahrer: {{turn_player}}</h2>
