@@ -1,0 +1,80 @@
+.hero {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    overflow: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        filter: brightness(0.6) blur(2px);
+    }
+}
+
+.bordered-box {
+    border: 1px solid white;
+    padding: 10px 5%;
+    color: white;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 3% auto;
+    z-index: 1;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+.impressum {
+  background-color: #fef9c3; /* light yellow */
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 3rem auto;
+  border: 1px solid #FFC857;
+  font-family: 'Segoe UI', sans-serif;
+  color: #78350f;
+}
+
+.impressum-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.impressum-content {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.impressum-content h3 {
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.impressum-content a {
+  color: #a16207;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.impressum-content a:hover {
+  color: #78350f;
+}
