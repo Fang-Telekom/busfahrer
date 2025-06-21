@@ -138,6 +138,7 @@ export class PlayComponent implements OnInit, OnDestroy {
           if(msg.message == "Game started! First phase: Guessing."){
               let audio = new Audio();
               audio.src = "./assets/audio/motor.mp3";
+              audio.volume = 0.2;
               audio.load();
               audio.play();
           }
