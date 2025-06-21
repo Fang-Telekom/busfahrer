@@ -1,5 +1,7 @@
 .background-image {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -20,14 +22,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    overflow: auto;
 
     .row {
 
         &:first-child {
             height: 10%;
-            margin-top: 5%;
+            margin: 5%;
             max-width: 350px;
         }
 
@@ -40,7 +42,7 @@
             .bordered-box {
                 width: 500px;
                 min-height: 420px;
-                display: flex;
+                display: grid;
                 flex-direction: column;
                 justify-content: space-between;
                 box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -113,7 +115,6 @@
 
 .custom-button:hover {
     background-color: rgba(85, 85, 85, 0.4);
-    color: black;
 }
 
 .modal{
@@ -206,7 +207,6 @@ span.close {
     background: linear-gradient(135deg, #ff4e50, #fc913a, #f9d423, #eae374, #e1f5c4);
     background-size: 400% 400%;
     animation: gradientMove 6s ease infinite;
-    color: #fff;
     font-weight: 800;
     text-transform: uppercase;
     border: none;
