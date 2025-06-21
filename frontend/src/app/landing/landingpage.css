@@ -113,6 +113,7 @@
 
 .custom-button:hover {
     background-color: rgba(85, 85, 85, 0.4);
+    color: black;
 }
 
 .modal{
