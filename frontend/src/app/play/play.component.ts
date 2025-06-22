@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { WebSocketService } from '../service/web-socket.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -178,7 +178,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     
 
   }
-  
+
   private showNotification(title: string, message: string) {
     this.notification = "message";
     this.message.title = title;

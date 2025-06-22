@@ -251,6 +251,10 @@
         </section>
         <section>
             <p>{{message.message}}</p>
+             <video *ngIf="message.title=='Bus Crash' || message.title=='Finito!'" autoplay muted loop playsinline style="width: 100%;">
+                <source src="assets/vids/done.mp4" type="video/mp4" />
+                Browser not supported
+            </video>
         </section>
     </div>
 </div>
