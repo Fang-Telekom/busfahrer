@@ -251,7 +251,7 @@
         </section>
         <section>
             <p *ngIf="phase!='pyramid' || message.title!='Treffer!!!'">{{message.message}}</p>
-            <div *ngIf="phase=='pyramid' && message.title=='Treffer!!!'" class="row">
+            <div *ngIf="phase=='pyramid' && message.title=='Treffer!!!'" class="row" style="margin-top: 0;">
                 <p>{{message.message}}</p>
                 <img class="cards" src="assets/cards/{{match}}.jpg" alt="Current card" id="current-card" />
             </div>
