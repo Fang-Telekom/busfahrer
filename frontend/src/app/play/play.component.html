@@ -250,8 +250,12 @@
             <span (click)="messageAction()" class="close" title="close Modal">&times;</span>
         </section>
         <section>
-            <p>{{message.message}}</p>
-             
+            <p *ngIf="phase!='pyramid' || message.title!='Treffer!!!'">{{message.message}}</p>
+            <div *ngIf="phase=='pyramid' && message.title=='Treffer!!!'" class="row">
+                <p>{{message.message}}</p>
+                <img class="cards" src="assets/cards/{{match}}.jpg" alt="Current card" id="current-card" />
+            </div>
+
         </section>
         <section *ngIf="message.title=='Bus Crash' || message.title=='Finito!'">
             <video autoplay muted loop playsinline preload="auto" style="width: 100%;">

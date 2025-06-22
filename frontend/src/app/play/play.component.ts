@@ -35,7 +35,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   public message: { title: string, message: string } = { title: "None", message: "error" };
   public highlight = ""
   private timeoutHandle: any;
-
+  public match = ""
   constructor(private wsService: WebSocketService) {}
 
   ngOnInit(): void {
@@ -113,7 +113,8 @@ export class PlayComponent implements OnInit, OnDestroy {
           drink = 4;
         else if (msg.pyramid_id < 10)
           drink = 2;
-        this.showNotification("Treffer!!!", `Karte gleicht ${msg.message}! Verteile ${drink} Schlücke!`);
+        this.match = msg.message
+        this.showNotification("Treffer!!!", `Verteile ${drink} Schlücke!`);
       } else if (type == 'player') {
         this.player = msg.player;
       } else if (type == "bus_setup"){

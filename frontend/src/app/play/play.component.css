@@ -214,7 +214,13 @@ button.bordered-box {
             color: #FFC857;
         }
     }
-    
+        .cards {
+        width: 40%;
+        max-width: 320px;
+        border-radius: 29px;
+        padding: 16px;
+        margin: 0 auto;
+    }
     row {
         width: 100%;
         flex-direction: column
