@@ -227,7 +227,7 @@
                     
                     <div *ngIf="score>4" class="choice-panel">
                         <button (click)="done()" class="bordered-box" aria-label="Draw a card">
-                            Fertigs
+                            Fertig
                         </button>
                     </div>
                 </div>
@@ -244,7 +244,7 @@
 
 <!-- Notification -->
 <div id="party"  (click)="messageAction()" class="modal" [style.display]="notification == 'message' ? 'block' : 'none'">
-    <div style="position: relative" class="modal-content animate">
+    <div  (click)="$event.stopPropagation()" style="position: relative" class="modal-content animate">
         <section>
             <h1>{{message.title}}</h1>
             <span (click)="messageAction()" class="close" title="close Modal">&times;</span>
@@ -269,7 +269,7 @@
 
 <!-- Notification -->
 <div id="party"  (click)="messageAction()" class="modal" [style.display]="notification == 'candidates' ? 'block' : 'none'">
-    <div style="position: relative" class="modal-content animate">
+    <div  (click)="$event.stopPropagation()" style="position: relative" class="modal-content animate">
         <section>
             <h1>Busfahrer Auswahl</h1>
             <span (click)="messageAction()" class="close" title="close Modal">&times;</span>

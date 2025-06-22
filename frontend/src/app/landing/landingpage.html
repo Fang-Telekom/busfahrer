@@ -38,7 +38,7 @@
 
 <!-- Modal Party -->
 <div id="party"  (click)="toggleModal(null)" class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
-    <div style="position: relative" class="modal-content animate">
+    <div  (click)="$event.stopPropagation()" style="position: relative" class="modal-content animate">
         <section>
             <h1 style="text-align: center;">Busfahrer - Party beitreten</h1>
             <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
@@ -62,9 +62,11 @@
                     </div>
 
                     <hr>
-                    <h2> Donate </h2>
-                    
-                    <button class="modalBtn"><a href="//www.paypal.com/donate/?hosted_button_id=JPAT95JDP5M7Y" target="_blank" rel="noopener"> Spenden PayPal</a></button>
+                    <div class="row" style="flex-direction: column;">
+                        <h2> Donate </h2>
+                        
+                        <button class="modalBtn"><a href="//www.paypal.com/donate/?hosted_button_id=JPAT95JDP5M7Y" target="_blank" rel="noopener"> Spenden PayPal</a></button>
+                    </div>
                 </div>
             </form>
         </section>
