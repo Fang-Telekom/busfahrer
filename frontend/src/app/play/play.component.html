@@ -251,10 +251,17 @@
         </section>
         <section>
             <p>{{message.message}}</p>
-             <video *ngIf="message.title=='Bus Crash' || message.title=='Finito!'" autoplay muted loop playsinline style="width: 100%;">
+             
+        </section>
+        <section *ngIf="message.title=='Bus Crash' || message.title=='Finito!'">
+            <video autoplay muted loop playsinline preload="auto" style="width: 100%;">
                 <source src="assets/vids/done.mp4" type="video/mp4" />
                 Browser not supported
             </video>
+            
+            <h2> Donate </h2>
+            <hr>
+            <button class="modalBtn"><a href="//www.paypal.com/donate/?hosted_button_id=JPAT95JDP5M7Y" target="_blank" rel="noopener"> Spenden PayPal</a></button>
         </section>
     </div>
 </div>

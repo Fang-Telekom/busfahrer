@@ -189,19 +189,19 @@ button.bordered-box {
     flex-direction: column;
     align-items: center;
 
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     border-radius: 8px;
-    background-color: white;
+    background-color: #F4F4F9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     
     
     button {
-        background: black;
-        color: white;
+        background:  #2E2E2E;
+        color: #F4F4F9;
         padding: 14px 20px; 
         border: none;
         cursor: pointer;
@@ -209,12 +209,12 @@ button.bordered-box {
         transition: opacity 0.3s;
         border-bottom: 1px solid transparent;
         border-radius: 29px;
+
+        a{
+            color: #FFC857;
+        }
     }
     
-    button:hover {
-        background-color: rgba(39, 39, 39, 0.4);
-    }
-
     row {
         width: 100%;
         flex-direction: column
@@ -223,6 +223,20 @@ button.bordered-box {
         width: 80%
     }
 
+}
+.animate {
+    animation: animatezoom 0.6s ease;
+    top: 50%;
+    left: 50%;
+}
+
+@keyframes animatezoom {
+    from {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 .bordered-box{
     background-color: transparent;
@@ -342,8 +356,6 @@ span.close {
 .close:hover, .close:focus {
     color: red;
 }
-
-
 
 #candidates li {
   padding: 8px;

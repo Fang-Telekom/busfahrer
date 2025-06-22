@@ -26,12 +26,18 @@
                     <p>Der Spieler mit den meisten Fehlern wird Busfahrer. Jetzt heißt es: eine Kartenreihe fehlerfrei durchspielen, indem du richtig rätst, ob die nächste Karte höher oder niedriger ist. Fehler führen zu Strafschlucken!</p>
                 </div>
             </div>
+            <div class="row bordered-box quadrate">
+                <button (click)="toggleModal('party')" class="custom-button bordered-box animated-gradient glow-button">
+                    LOS GEHT'S!
+                </button>
+            </div>
         </div>
+        
     </div>
 </div>
 
 <!-- Modal Party -->
-<div id="party"  class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
+<div id="party"  (click)="toggleModal(null)" class="modal" [style.display]="modalVisible == 'party' ? 'block' : 'none'">
     <div style="position: relative" class="modal-content animate">
         <section>
             <h1 style="text-align: center;">Busfahrer - Party beitreten</h1>
@@ -54,6 +60,11 @@
                         <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Beitreten </button>
                         <button type="button" class="modalBtn" (click)="verify(name.value, code.value)"> Erstellen </button>
                     </div>
+
+                    <hr>
+                    <h2> Donate </h2>
+                    
+                    <button class="modalBtn"><a href="//www.paypal.com/donate/?hosted_button_id=JPAT95JDP5M7Y" target="_blank" rel="noopener"> Spenden PayPal</a></button>
                 </div>
             </form>
         </section>

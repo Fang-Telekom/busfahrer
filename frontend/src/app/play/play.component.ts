@@ -68,11 +68,14 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.phase = msg.phase;
         this.players = msg.players;
         this.cards = this.players[this.player]['cards'];
-        this.score = this.players[this.player]['score'];
+        this.turn_player = msg.turn;
+        if(this.phase == "bus")
+          this.score = this.players[this.turn_player]['score'];
+        else
+          this.score = this.players[this.player]['score'];
         this.master = msg.master;
         this.room = msg.room;
-        this.turn_player = msg.turn;
-
+        
         if (this.phase == "qualifying" && this.player == this.turn_player && this.notification == null)
           this.showNotification("Der Bus will weiterfahren!", "Fahre fort oder der Bus fährt fort.");
     
@@ -183,10 +186,13 @@ export class PlayComponent implements OnInit, OnDestroy {
     this.notification = "message";
     this.message.title = title;
     this.message.message = message;
-    clearTimeout(this.timeoutHandle);
-    this.timeoutHandle = setTimeout(() => {
-      this.messageAction()
-    }, 5000);
+
+    if(title != 'Bus Crash' && title != 'Finito!'){
+        clearTimeout(this.timeoutHandle);
+        this.timeoutHandle = setTimeout(() => {
+          this.messageAction()
+        }, 5000);
+      }
   }
 
   handleEscKey = (event: KeyboardEvent) => {
