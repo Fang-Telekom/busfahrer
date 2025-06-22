@@ -1,39 +1,13 @@
 <div #header [class.hidden]="isHidden" class="sticky-header">
-  <div class="row align-center">
-    <div class="header-center">
-      <img src="assets/logo.jpg" alt="Logo" class="logo" />
-      <h1>Busfahrer - Ass im Ärmel?</h1>
-      <img src="assets/logo.jpg" alt="Logo" class="logo" />
-    </div>
-    <div class="nav-container">
-      <nav aria-label="Main Navigation Links">
-        <a href="/" aria-label="Home">Home</a>
+    <div class="row align-center">
+        <div class="header-center">
+            <img src="assets/logo.jpg" alt="Logo" class="logo" />
+            <h1>Busfahrer - Ass im Ärmel?</h1>
+            <div class="nav-container">
+
+            <nav aria-label="Main Navigation Links">
+                <a href="/" aria-label="Home">Home</a>
             </nav>
         </div>
-
-    <!-- Modal log -->
-    <div id="log"  class="modal" [style.display]="modalVisible == 'log' ? 'block' : 'none'">
-        <div style="position: relative" class="modal-content animate">
-            <section>
-                <h1>Login Form</h1>
-                <span (click)="toggleModal(null)" class="close" title="close Modal">&times;</span>
-            </section>
-            <section>
-                <form action="/" method="post">
-                    <div class="row" style="flex-direction: column">
-
-                        <label for="name"><b> Benutzername </b></label>
-                        <input type="text" placeholder="Benutzername" name="name" #username>
-                        <label for="pass"><b> Passwort </b></label>
-                        <input type="password" placeholder="Passwort" name="pass" #password>
-                        <button type="button" style="color: white;" class="modalBtn" (click)="verify(username.value, password.value)"> Login </button>
-
-                    </div>
-                    <div class="row">
-                        <button type="button" style="margin:auto; width: 40%;" (click)="toggleModal(null)"> Cancel </button>
-                    </div>
-                </form>
-            </section>
-        </div>
-    </div>
-    <!-- End of Modal log -->
+    
+</div>

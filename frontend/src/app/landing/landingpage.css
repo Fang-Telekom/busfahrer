@@ -1,3 +1,11 @@
+.landingpage{
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    overflow: hidden;
+}
+
+
 .background-image {
     position: absolute;
     top: 0;
@@ -7,6 +15,7 @@
     object-fit: cover;
     z-index: 0;
     filter: brightness(0.6) blur(2px);
+    pointer-events: none;
 }
 .bordered-box {
     border: 1px solid white;
@@ -30,7 +39,6 @@
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    overflow: auto;
 
     .row {
 
@@ -45,7 +53,7 @@
             height: 60%;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            
+            margin-bottom: 5%;
             .bordered-box {
                 width: 500px;
                 min-height: 420px;
@@ -137,9 +145,8 @@
     z-index: 1000;
 }
 .modal-content {
-    width: 30%;
-    max-width: 800px;
-
+    width: 90%;
+    max-width: 500px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -242,4 +249,22 @@ span.close {
     box-shadow:
         0 0 15px rgba(255, 200, 100, 0.4),
         0 0 30px rgba(255, 100, 150, 0.3);
+}
+
+@media (max-width: 768px) {
+
+
+    .hero {
+
+        width: 100%;
+        .bordered-box {
+            max-width: 70%;
+        }
+
+        .bordered-box img {
+            height: 180px;
+        }
+        
+        
+    }
 }

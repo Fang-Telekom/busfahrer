@@ -1,13 +1,11 @@
-.waiting {
-  .hero {
+.waiting, .qualifying, .pyramid, .bus{
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    height: 70vh;
-    overflow: auto;
-  }
+    min-height: 80vh;
+    overflow: hidden;
+}
+
+.waiting {
 
   .hero-text {
     position: absolute;
@@ -59,12 +57,23 @@
 
 .qualifying{
     
-    .cards{
-        width: 70%;
-        max-width: 200px;
+    .cards {
+        width: 90%;
+        max-width: 320px;
         border-radius: 29px;
         padding: 16px;
+        margin: 0 auto;
     }
+
+    .row {
+        &:first-child {
+            height: 70%;
+        }
+
+        &:last-child {
+            height: 30%;
+        }
+    }  
 
 }
 .pyramid {
@@ -119,21 +128,16 @@
     border-radius: 29px;
     padding: 16px;
 }
-.board {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-}
-
 .overlay {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: 1rem;
+    padding-top: 5%;
     flex-wrap: wrap;
     overflow: auto;
 }
@@ -150,6 +154,7 @@ button {
 }
 
 button.bordered-box {
+    margin: 5px;
     border: 1px solid white;
     padding: 10px;
 }
@@ -177,9 +182,8 @@ button.bordered-box {
 }
 
 .modal-content {
-    width: 30%;
-    max-width: 800px;
-
+    width: 90%;
+    max-width: 500px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -221,7 +225,6 @@ button.bordered-box {
 
 }
 .bordered-box{
-    margin-top: 15px;
     background-color: transparent;
     color: white;
     font-size: 1rem;
@@ -323,6 +326,7 @@ button.bordered-box {
     object-fit: cover;
     z-index: 0;
     filter: brightness(0.4);
+    pointer-events: none;
 }
 
 span.close {
@@ -351,4 +355,66 @@ span.close {
 #candidates li.highlight {
   background: gold;
   font-weight: bold;
+}
+
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    .player-panel,
+    .card-display,
+    .choice-panel {
+        width: 60%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .card {
+        width: 90%;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .qualifying{
+        .cards {
+            width: 90%;
+            padding: 12px;
+        }
+        .row {
+            &:first-child {
+                height: 50%;
+            }
+
+            &:last-child {
+                height: 50%;
+            }
+        }
+    }
+
+    .pyramid{
+        .cards {
+            width: 55px;
+            padding: 12px;
+            border-radius: 12px;
+        }
+        .pyramid-row img, button img {
+            width: 65px;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            padding: 10px 10px;
+            background-color: transparent;
+            border: none;
+        }
+        .row {
+            &:first-child {
+                height: 60%;
+            }
+
+            &:last-child {
+                height: 40%;
+            }
+        }
+        
+    }
+
 }

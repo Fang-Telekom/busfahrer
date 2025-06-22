@@ -1,6 +1,7 @@
 <div id="party" class="waiting" [style.display]="phase == 'lobby' ? 'block' : 'none'">
-  <div class="hero">
-    <img src="assets/wood.jpg" alt="Hintergrund" class="background-image rounded-img" />
+    <img src="assets/wood.jpg" alt="Hintergrund" class="background-image" />
+  <div class="overlay">
+    
 
     <div class="hero-text bordered-box">
       <h1>Master: {{ master }}</h1>
@@ -23,33 +24,31 @@
 
 <div id="party"  class="qualifying" [style.display]="phase == 'qualifying' ? 'block' : 'none'">
 
+    <img src="assets/wood.jpg" alt="Background" class="background-image" />
     
-  <div class="board">
-    <img src="assets/wood.jpg" alt="Background" class="background-image" style="transform: scale(1.1);" />
     <div class="icon-row-wrapper">
-            <div class="icon-line">
-                
-                <div class="icon-container">
-                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
-                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
-                    </svg>
+        <div class="icon-line">
+            
+            <div class="icon-container">
+                <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                </svg>
 
 
-                    <img src="assets/vier.png" alt="Vier" class="icon">
-                </div>
-                <div class="icon-container">
-                    <img src="assets/pyramid.png" alt="Pyramide" class="icon">
-                </div>
-                <div class="icon-container">
-                    <img src="assets/bus.png" alt="Busfahrer" class="icon">
-                </div>
+                <img src="assets/vier.png" alt="Vier" class="icon">
             </div>
-            <div class="underline"></div>
+            <div class="icon-container">
+                <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+            </div>
+            <div class="icon-container">
+                <img src="assets/bus.png" alt="Busfahrer" class="icon">
+            </div>
         </div>
-    
+        <div class="underline"></div>
+    </div>
     <div class="overlay">
-        <div class="row" style="height: 70%;">
+        <div class="row">
             <div class="player-panel">
                 <h2 id="player-name">Player: {{turn_player}}</h2>
                 <div *ngIf="getCardCount()==0" class="choice-panel">
@@ -106,142 +105,140 @@
                 
             </div>
         </div>
-        <div class="row" style="height: 30%;">
+        <div class="row">
             <div *ngFor="let i of [0, 1, 2, 3]" class="card-display" >
                 <img class="cards" [src]="cards[i] ? 'assets/cards/' + cards[i] + '.jpg' : 'assets/card.png'" [alt]="cards[i] ? 'Card: ' + cards[i] : 'Empty card slot'"  />
             </div>
         </div>
     </div>
-  </div>
+
 
 </div>
 
 <div id="party"  class="pyramid" [style.display]="phase == 'pyramid' ? 'block' : 'none'">
+    <img src="assets/wood.jpg" alt="Board" class="background-image" />
+        
+    <div class="icon-row-wrapper">
+        <div class="icon-line">
+            
+            <div class="icon-container">
+                <img src="assets/vier.png" alt="Vier" class="icon">
+            </div>
+            <div class="icon-container">
+                <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                </svg>
 
-    <div class="board">
-        <img src="assets/wood.jpg" alt="Board" class="background-image" />
-        <div class="icon-row-wrapper">
-            <div class="icon-line">
-                
-                <div class="icon-container">
-                    <img src="assets/vier.png" alt="Vier" class="icon">
+
+                <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+            </div>
+            <div class="icon-container">
+                <img src="assets/bus.png" alt="Busfahrer" class="icon">
+            </div>
+        </div>
+        <div class="underline"></div>
+    </div>
+    <div class="overlay">
+        <div class="row">
+            <div class="pyramid-container">
+                <div class="pyramid-row">
+                    <button  *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
                 </div>
-                <div class="icon-container">
-                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
-                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
-                    </svg>
-
-
-                    <img src="assets/pyramid.png" alt="Pyramide" class="icon">
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
                 </div>
-                <div class="icon-container">
-                    <img src="assets/bus.png" alt="Busfahrer" class="icon">
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
+                </div>
+                <div class="pyramid-row">
+                    <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
+                    <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
+                    <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
                 </div>
             </div>
-            <div class="underline"></div>
-        </div>
-        <div class="overlay">
-            <div class="row">
-                <div class="pyramid-container">
-                    <div class="pyramid-row">
-                        <button  *ngIf="openPyramid[0]==false" (click)="openCard(0)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[0]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[0] + '.jpg'" alt="Current card" id="current-card" />
-                    </div>
-                    <div class="pyramid-row">
-                        <button *ngIf="openPyramid[1]==false" (click)="openCard(1)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[1]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[1] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[2]==false" (click)="openCard(2)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[2]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[2] + '.jpg'" alt="Current card" id="current-card" />
-                    </div>
-                    <div class="pyramid-row">
-                        <button *ngIf="openPyramid[3]==false" (click)="openCard(3)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[3]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[3] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[4]==false" (click)="openCard(4)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[4]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[4] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[5]==false" (click)="openCard(5)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[5]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[5] + '.jpg'" alt="Current card" id="current-card" />
-                    </div>
-                    <div class="pyramid-row">
-                        <button *ngIf="openPyramid[6]==false" (click)="openCard(6)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[6]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[6] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[7]==false" (click)="openCard(7)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[7]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[7] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[8]==false" (click)="openCard(8)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[8]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[8] + '.jpg'" alt="Current card" id="current-card" />
-                        <button *ngIf="openPyramid[9]==false" (click)="openCard(9)"><img src="assets/card.png" alt="deck" /></button>
-                        <img *ngIf="openPyramid[9]==true && pyramid.length > 9" [src]="'assets/cards/' + pyramid[9] + '.jpg'" alt="Current card" id="current-card" />
-                    </div>
-                </div>
-                <button *ngIf="allOpened()" (click)="advance()" class="bordered-box" aria-label="Draw a card">
+            <div class="player-panel" *ngIf="allOpened()">
+                <button  (click)="advance()" class="bordered-box" aria-label="Draw a card">
                         Nächste Phase
                 </button>
             </div>
-            <div class="row">
-                <div *ngFor="let card of cards" class="card-display" >
-                    <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
-                </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let card of cards" class="card-display" >
+                <img class="cards" [src]="'assets/cards/' + card + '.jpg'" [alt]="'Card: ' + card"  />
             </div>
         </div>
     </div>
-
 </div>
 
 <div id="party"  class="bus" [style.display]="phase == 'bus' ? 'block' : 'none'">
-
-    <div class="board">
-        <img src="assets/wood.jpg" alt="Background" class="background-image" />
-        <div class="icon-row-wrapper">
-            <div class="icon-line">
-                
-                <div class="icon-container">
-                    <img src="assets/vier.png" alt="Vier" class="icon">
-                </div>
-                <div class="icon-container">
-                     <img src="assets/pyramid.png" alt="Pyramide" class="icon">
-                </div>
-                <div class="icon-container">
-                    <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
-                    <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
-                    </svg>
-
-
-                   <img src="assets/bus.png" alt="Busfahrer" class="icon">
-                </div>
+    <img src="assets/wood.jpg" alt="Background" class="background-image" />
+    <div class="icon-row-wrapper">
+        <div class="icon-line">
+            
+            <div class="icon-container">
+                <img src="assets/vier.png" alt="Vier" class="icon">
             </div>
-            <div class="underline"></div>
-        </div>
-        <div class="overlay">
-            <div class="player-panel">
-                <h2 id="player-name">Busfahrer: {{turn_player}}</h2>
-                <h2>Score {{score}}</h2>
-                <div *ngIf="5 > score" class="choice-panel">
-                    <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
-                        Höher
-                    </button>
-                    <button (click)="sendGuessBus('equal')" class="bordered-box" aria-label="Draw a card">
-                        Gleich
-                    </button>
-                    <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
-                        Niedriger
-                    </button>
-                </div>
-                
-                <div *ngIf="score>4" class="choice-panel">
-                    <button (click)="done()" class="bordered-box" aria-label="Draw a card">
-                        Fertig
-                    </button>
-                </div>
+            <div class="icon-container">
+                <img src="assets/pyramid.png" alt="Pyramide" class="icon">
             </div>
+            <div class="icon-container">
+                <svg width="40" height="40" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <path d="M32 12v32" stroke="#333" stroke-width="4" stroke-linecap="round"/>
+                <path d="M16 32l16 16 16-16" fill="#FFD166" stroke="#333" stroke-width="4" stroke-linejoin="round"/>
+                </svg>
 
-            <div class="card-display" style="align-items: center;">
-                <img class="card" *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
-                <img class="card" *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card" id="current-card" />
-                
+
+                <img src="assets/bus.png" alt="Busfahrer" class="icon">
             </div>
         </div>
+        <div class="underline"></div>
     </div>
+        <div class="overlay">
+            <div class="row">
+                <div class="player-panel">
+                    <h2 id="player-name">Busfahrer: {{turn_player}}</h2>
+                    <h2>Score {{score}}</h2>
+                    <div *ngIf="5 > score" class="choice-panel">
+                        <button (click)="sendGuessBus('higher')" class="bordered-box" aria-label="Draw a card">
+                            Höher
+                        </button>
+                        <button (click)="sendGuessBus('equal')" class="bordered-box" aria-label="Draw a card">
+                            Gleich
+                        </button>
+                        <button (click)="sendGuessBus('lower')"class="bordered-box" aria-label="Draw a card">
+                            Niedriger
+                        </button>
+                    </div>
+                    
+                    <div *ngIf="score>4" class="choice-panel">
+                        <button (click)="done()" class="bordered-box" aria-label="Draw a card">
+                            Fertigs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-display" style="align-items: center;">
+                    <img class="card" *ngIf="card==''" src="assets/card.png" alt="Current card" id="current-card" />
+                    <img class="card" *ngIf="card!=''" src="assets/cards/{{card}}.jpg" alt="Current card" id="current-card" />
+                    
+                </div>
+            </div>
+        </div>
 
 </div>
 
