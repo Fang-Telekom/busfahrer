@@ -416,5 +416,26 @@ span.close {
         }
         
     }
+    .row {
+        &:first-child {
+            margin-top: 20%;
+        }
+    }
+    .icon-row-wrapper {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+    }
+
+    .icon-line {
+        gap: 20px;
+        flex-wrap: wrap; /* allows wrapping */
+        justify-content: center;
+    }
+
+    .icon {
+        width: 36px; /* smaller icons on mobile */
+    }
+
 
 }
